@@ -2,11 +2,11 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     line-height: 1.42em;
-    color:#b8b8b8;
+    color: #b8b8b8;
     background: linear-gradient(135deg, #1F2739 0%, #2C3446 100%);
-  }
-  
-  body::before {
+}
+
+body::before {
     content: '';
     position: fixed;
     top: 0;
@@ -16,155 +16,149 @@ body {
     background: radial-gradient(circle, transparent 20%, #1F2739 120%);
     opacity: 0.7;
     z-index: -1;
-  }
-  
-  h1 {
-    font-size: 3em; 
+}
+
+h1 {
+    font-size: 2em;
     font-weight: 300;
     line-height: 1em;
     text-align: center;
     color: #4DC3FA;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  h2 {
-    font-size: 1em; 
+}
+
+h2 {
+    font-size: 0.9em;
     font-weight: 300;
     text-align: center;
-    display: block;
-    line-height: 1em;
     color: #FB667A;
-  }
-  
-  h2 a {
+}
+
+h2 a {
     font-weight: 700;
     text-transform: uppercase;
     color: #FB667A;
     text-decoration: none;
-  }
-  
-  .blue { color: #185875; }
-  .yellow { color: #FFF842; }
-  
-  .container th h1 {
-      font-weight: bold;
-      font-size: 1em;
-      text-align: left;
-      color: #185875;
-  }
-  
-  .table-wrapper {
-      max-height: 600px;
-      overflow-y: auto;
-      border-radius: 15px;
-      width: 1200px;
-      margin: 0 auto;
-  }
-  
-  .container {
-      text-align: left;
-      width: 100%;
-      margin: 0 auto;
-      display: table;
-      padding: 0;
-      background: rgba(31, 39, 57, 0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-collapse: separate;
-      border-spacing: 0;
-  }
-  
-  .container thead {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-  }
-  
-  .container th {
-    padding: 12px 15px; /* Adjusted padding */
+}
+
+.table-wrapper {
+    max-height: 600px;
+    overflow-y: auto;
+    border-radius: 20px;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.container {
+    text-align: left;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background: rgba(31, 39, 57, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.container th {
+    padding: 10px;
     background-color: rgba(31, 39, 57, 0.9);
     border-bottom: 2px solid #4DC3FA;
     color: #4DC3FA;
     font-weight: bold;
     text-transform: uppercase;
 }
-  
-  .container td {
-      padding: 5px 10px;
-      transition: all 0.3s ease;
-      font-weight: normal;
-      font-size: 1em;
-      box-shadow: 0 2px 2px -2px #0E1119;
-  }
-  
-  .container tr:nth-child(odd) {
-      background-color: rgba(50, 60, 80, 0.8);
-  }
-  
-  .container tr:nth-child(even) {
-      background-color: rgba(44, 52, 70, 0.8);
-  }
-  
-  .container tr:hover {
-      font-weight: bold;
-      background-color: rgba(89, 89, 73, 0.9);
-      box-shadow: 0 6px 6px -6px #0E1119;
-      transition: all 0.3s ease;
-  }
-  
-  .container thead tr:hover {
-      transform: none;
-      box-shadow: none;
-      background-color: rgba(31, 39, 57, 0.9);
-  }
-  
-  .container tr:last-child td:first-child {
-      border-bottom-left-radius: 15px;
-  }
-  
-  .container tr:last-child td:last-child {
-      border-bottom-right-radius: 15px;
-  }
-  
-  .table-wrapper::-webkit-scrollbar {
-      width: 8px;
-  }
-  
-  .table-wrapper::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
-  }
-  
-  .table-wrapper::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-  }
-  
-  .table-wrapper::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.5);
-  }
-  
-  .th {
-      text-align: left;
-      background-color: #1F2739;
-  }
-  
-  .th a {
-      display: inline-block;
-      padding: 10px 15px;
-      margin: 0 10px;
-      background-color: #185875;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-  }
-  
-  .th a:hover {
-      background: linear-gradient(135deg, #72BF78 0%, #9BE0A8 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  }
+
+.container td {
+    padding: 8px;
+    font-size: 1em;
+    box-shadow: 0 2px 2px -2px #0E1119;
+}
+
+.container tr:nth-child(odd) {
+    background-color: rgba(50, 60, 80, 0.8);
+}
+
+.container tr:nth-child(even) {
+    background-color: rgba(44, 52, 70, 0.8);
+}
+
+.container tr:hover {
+    background-color: rgba(89, 89, 73, 0.9);
+    box-shadow: 0 6px 6px -6px #0E1119;
+    transition: all 0.3s ease;
+}
+
+.th a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 10px;
+    background-color: #185875;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.th a:hover {
+    background: linear-gradient(135deg, #72BF78 0%, #9BE0A8 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .table-wrapper {
+        width: 100%;
+    }
+
+    .container th,
+    .container td {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .table-wrapper {
+        width: 100%;
+    }
+
+    .container {
+        font-size: 0.85em;
+    }
+
+    .container th,
+    .container td {
+        padding: 6px;
+        font-size: 0.85em;
+    }
+}
