@@ -74,19 +74,15 @@
             p.condition_at_purchase, 
             p.p_cost, 
             p.purchase_id, 
-            p.item_num, 
+            p.item_num,
             p.ClientNumber, 
             i.description AS item_description, 
             c.givenName, 
             c.lastName 
-        FROM 
-            purchases p
-        INNER JOIN 
-            items i ON p.item_num = i.item_num
-        INNER JOIN 
-            allclients c ON p.ClientNumber = c.ClientNumber
-        ORDER BY 
-            p.p_date DESC";
+        FROM purchases p
+        INNER JOIN items i ON p.item_num = i.item_num
+        INNER JOIN allclients c ON p.ClientNumber = c.ClientNumber
+        ORDER BY p.p_date DESC";
 
     $query = mysqli_query($conn, $sql);
 
