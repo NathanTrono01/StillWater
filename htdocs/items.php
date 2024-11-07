@@ -33,8 +33,7 @@
         .td a[href*="update_i.php"]:hover {
             background-color: #72BF78;
             cursor: pointer;
-            transform: translateY(-2px);
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
@@ -52,8 +51,7 @@
         .td a[href*="items.php?action=delete"]:hover {
             background-color: #FB667A;
             cursor: pointer;
-            transform: translateY(-2px);
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 

@@ -8,26 +8,9 @@
 </head>
 <link rel="stylesheet" href="css/style.css">
 <style>
-    .td a[href*="update_s.php"] {
-        display: inline-block;
-        padding: 5px 10px;
-        background-color: #185875;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .td a[href*="update_s.php"]:hover {
-        background-color: #72BF78;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
     .td a[href*="sales.php?action=delete"] {
         display: inline-block;
-        padding: 5px 15px;
+        padding: 5px 10px;
         margin: 0 10px;
         background-color: #185875;
         color: white;
@@ -39,8 +22,7 @@
     .td a[href*="sales.php?action=delete"]:hover {
         background-color: #FB667A;
         cursor: pointer;
-        transform: translateY(-2px);
-        transition: background-color 0.3s ease;
+        transition: background-color 0.2s ease;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
@@ -86,7 +68,7 @@ if (!$query) {
                     <th align="right">Stillwater Antique Sales Record</th>
                 </tr>
                 <tr align="center">
-                    <th>Date Sold</th>
+                    <th width="150px">Date Sold</th>
                     <th>Sold to</th>
                     <th>Item Description</th>
                     <th>Selling Price</th>
@@ -110,10 +92,10 @@ if (!$query) {
                     $salesTax = $result['sellingPrice'] !== null ? $result['sellingPrice'] * 0.12 : 0;
                     $formatSalesTax = number_format($salesTax, 2); // format sales tax
 
-                    $dateSold = !empty($result['date_sold']) ? date("M d, Y -- g:i A", strtotime($result['date_sold'])) : 'N/A';
+                    $dateSold = !empty($result['date_sold']) ? date("M d, Y", strtotime($result['date_sold'])) . "<br>" . date("g:i A", strtotime($result['date_sold'])) : 'N/A';
                 ?>
                     <tr>
-                        <td><?php echo $dateSold; ?></td>
+                        <td style="font-size: 1em;"><?php echo $dateSold; ?></td>
                         <td><?php echo $givenName . ' ' . $lastName; ?></td>
                         <td><?php echo $description; ?></td>
                         <td align="left"><span style="color: green;">₱</span> <?php echo $sellingPrice; ?></td>

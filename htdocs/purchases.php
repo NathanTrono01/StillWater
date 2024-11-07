@@ -20,8 +20,7 @@
         .td a[href*="purchases.php?action=delete"]:hover {
             background-color: #FB667A;
             cursor: pointer;
-            transform: translateY(-2px);
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
@@ -128,7 +127,7 @@
                         break;
                 }
 
-                $p_date = !empty($result['p_date']) ? date("M d, Y -- g:i A", strtotime($result['p_date'])) : 'N/A';
+                $p_date = !empty($result['p_date']) ? date("M d, Y", strtotime($result['p_date'])) ."<br>". date("g:i A", strtotime($result['p_date'])) : 'N/A';
             ?>
                 <tr align="center">
                     <td><?php echo $p_date; ?></td>
