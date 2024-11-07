@@ -75,15 +75,15 @@ if (!$query) {
                         <th align="center">Given Name</th>
                         <th align="center">Address</th>
                         <th align="center">Client Number</th>
-                        <th align="center" style="width: 175px;">Actions</th>
+                        <th align="center">Actions</th>
                     </tr>
                 <tbody>
                     <?php
                     while ($result = mysqli_fetch_assoc($query)) { ?>
                         <tr>
-                            <td align="left"><span style="color: yellow;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
+                            <td align="left" width="25%"><span style="color: yellow;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
                                 <?php echo htmlspecialchars($result['givenName']); ?></td>
-                            <td align="center"><?php echo $result['ClientAddress']; ?></td>
+                            <td align="center" width="40%"><?php echo $result['ClientAddress']; ?></td>
                             <td align="center"><span style="color: #FB667A;"><?php echo $result['ClientNumber']; ?></td>
                             <td align="center" class="td">
                                 <a href='update_c.php?action=edit&ClientNumber=<?php echo $result["ClientNumber"]; ?>'>Edit</a>
