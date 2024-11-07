@@ -144,7 +144,7 @@ include("datetime.php");
 </script>
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['submit'])) {
     $sellingPrice = $_POST['sellingPrice'];
     $commissionPaid = $_POST['commissionPaid'] ?: null;
     $clientNumber = $_POST['ClientNumber'] ?: null;
