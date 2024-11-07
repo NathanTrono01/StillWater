@@ -10,8 +10,7 @@
 <style>
     .td a[href*="update_s.php"] {
         display: inline-block;
-        padding: 5px 15px;
-        margin: 0 10px;
+        padding: 5px 10px;
         background-color: #185875;
         color: white;
         text-decoration: none;
@@ -84,7 +83,7 @@ if (!$query) {
             <thead>
                 <tr>
                     <th class="th" colspan="7"><a href="insert_s.php">Add Record</a></th>
-                    <th align="right">Stillwater Sales Record</th>
+                    <th align="right">Stillwater Antique Sales Record</th>
                 </tr>
                 <tr align="center">
                     <th>Date Sold</th>

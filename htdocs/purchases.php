@@ -9,8 +9,7 @@
     <style>
         .td a[href*="purchases.php?action=delete"] {
             display: inline-block;
-            padding: 5px 15px;
-            margin: 0 5px;
+            padding: 5px 10px;
             background-color: #185875;
             color: white;
             text-decoration: none;
@@ -96,7 +95,7 @@
         <thead>
             <tr>
                 <th class="th" colspan="6"><a href="insert_p.php">Add Record</a></th>
-                <th align="right">Stillwater Purchase Record</th>
+                <th align="right">Stillwater Antique Purchase Record</th>
             </tr>
             <tr align="center">
                 <th width="150px">Date Purchased</th>

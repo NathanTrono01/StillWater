@@ -21,8 +21,7 @@ if (!$query) {
 <style>
     .td a[href*="update_c.php"] {
         display: inline-block;
-        padding: 5px 15px;
-        margin: 0 5px;
+        padding: 5px 10px;
         background-color: #185875;
         color: white;
         text-decoration: none;
@@ -40,7 +39,7 @@ if (!$query) {
 
     .td a[href*="c_list.php?action=delete"] {
         display: inline-block;
-        padding: 5px 15px;
+        padding: 5px 10px;
         margin: 0 5px;
         background-color: #185875;
         color: white;
@@ -70,7 +69,7 @@ if (!$query) {
                 <thead>
                     <tr>
                         <th class="th" colspan="3"><a href="insert_c.php" colspan="2">Insert Client</a></th>
-                        <th align="right">Stillwater Client List</th>
+                        <th align="right">Stillwater Antique Client List</th>
                     </tr>
                     <tr>
                         <th align="center">Given Name</th>
@@ -82,9 +81,9 @@ if (!$query) {
                     <?php
                     while ($result = mysqli_fetch_assoc($query)) { ?>
                         <tr>
-                            <td align="left" width="25%"><span style="color: yellow;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
+                            <td align="left"><span style="color: yellow;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
                                 <?php echo htmlspecialchars($result['givenName']); ?></td>
-                            <td align="center" width="40%"><?php echo $result['ClientAddress']; ?></td>
+                            <td align="center"><?php echo $result['ClientAddress']; ?></td>
                             <td align="center"><span style="color: #FB667A;"><?php echo $result['ClientNumber']; ?></td>
                             <td align="center" class="td">
                                 <a href='update_c.php?action=edit&ClientNumber=<?php echo $result["ClientNumber"]; ?>'>Edit</a>

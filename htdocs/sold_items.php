@@ -10,7 +10,8 @@
     include("nav.php");
     include("database.php");
 
-    $sql = "SELECT * FROM items WHERE is_sold = 0 ORDER BY item_num DESC";
+    // Change the SQL query to select items where is_sold = 1
+    $sql = "SELECT * FROM items WHERE is_sold = 1 ORDER BY item_num DESC";
 
     $query = mysqli_query($conn, $sql);
 
@@ -19,10 +20,10 @@
     }
     ?>
     <style>
-
         .td a[href*="update_i.php"] {
             display: inline-block;
-            padding: 5px 10px;
+            padding: 5px 15px;
+            margin: 0 5px;
             background-color: #185875;
             color: white;
             text-decoration: none;
@@ -40,7 +41,7 @@
 
         .td a[href*="items.php?action=delete"] {
             display: inline-block;
-            padding: 5px 10px;
+            padding: 5px 15px;
             margin: 0 5px;
             background-color: #185875;
             color: white;
@@ -89,8 +90,7 @@
         <table class="container">
             <thead>
                 <tr>
-                    <th class="th" colspan="6"><a href="insert_i.php">Insert Item</a></th>
-                    <th align="right">Stillwater Antique Available Items</th>
+                    <th align="left" colspan="6">Stillwater Antique Sold Items</th>
                 </tr>
                 <tr align="center">
                     <th width="150px">Name / Description</th>
@@ -99,7 +99,6 @@
                     <th width="200px">Critiqued Comments</th>
                     <th width="50px">Item Type</th>
                     <th width="50px">Item Number</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -126,14 +125,10 @@
                         <td class="<?php echo $conditionClass; ?>">
                             <?php echo $result['condition']; ?>
                         </td>
-                        <td align="left"><span style="color: green;">₱</span> <?php echo $formatPrice; ?></td>
+                        <td align="left"><span style="color: green;"> ₱</span> <?php echo $formatPrice; ?></td>
                         <td><?php echo $result['critiqued_comments']; ?></td>
                         <td><?php echo $result['item_type']; ?></td>
                         <td><span style="color: #FB667A"><?php echo $result['item_num']; ?></span></td>
-                        <td align="center" width="20%" class="td">
-                            <a href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'>Edit</a>
-                            <a href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
