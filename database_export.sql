@@ -37,7 +37,7 @@ CREATE TABLE `allclients` (
 
 LOCK TABLES `allclients` WRITE;
 /*!40000 ALTER TABLE `allclients` DISABLE KEYS */;
-INSERT INTO `allclients` VALUES (3,'John','123 Apple St, Toronto','Smith'),(4,'Emma','456 Maple Ave, Vancouver','Johnson'),(5,'Michael','789 Oak Rd, Montreal','Williams'),(6,'Sarah','321 Pine Lane, Calgary','Brown'),(7,'David','654 Cedar Blvd, Ottawa','Jones'),(8,'Lisa','987 Birch Way, Edmonton','Garcia'),(9,'James','147 Elm St, Victoria','Miller'),(10,'Jennifer','258 Spruce Ave, Halifax','Davis'),(11,'Robert','369 Willow Rd, Regina','Rodriguez'),(12,'Maria','741 Fir Lane, Winnipeg','Martinez'),(13,'William','852 Ash St, Quebec City','Anderson'),(14,'Patricia','963 Poplar Ave, Hamilton','Taylor'),(15,'Richard','159 Maple Dr, Surrey','Thomas'),(16,'Linda','753 Oak Circle, London','Moore'),(17,'Joseph','951 Pine Court, Saskatoon','Jackson'),(18,'Elizabeth','357 Cedar Path, St. Johns','White'),(19,'Thomas','486 Birch Road, Kingston','Harris'),(20,'Margaret','264 Spruce Lane, Kelowna','Martin'),(21,'Charles','159 Willow Ave, Gatineau','Thompson'),(22,'Sandra','753 Elm Court, Guelph','Lee'),(23,'Cyril Jay','Suarez','Acope'),(24,'Jaymar','Pugaan','Mangiboa');
+INSERT INTO `allclients` VALUES (3,'John','123 Apple St, Toronto','Smith'),(4,'Emma','456 Maple Ave, Vancouver','Johnson'),(6,'Sarah','321 Pine Lane, Calgary','Brown'),(7,'David','654 Cedar Blvd, Ottawa','Jones'),(8,'Lisa','987 Birch Way, Edmonton','Garcia'),(9,'James','147 Elm St, Victoria','Miller'),(10,'Jennifer','258 Spruce Ave, Halifax','Davis'),(11,'Robert','369 Willow Rd, Regina','Rodriguez'),(12,'Maria','741 Fir Lane, Winnipeg','Martinez'),(13,'William','852 Ash St, Quebec City','Anderson'),(14,'Patricia','963 Poplar Ave, Hamilton','Taylor'),(15,'Richard','159 Maple Dr, Surrey','Thomas'),(16,'Linda','753 Oak Circle, London','Moore'),(17,'Joseph','951 Pine Court, Saskatoon','Jackson'),(19,'Thomas','486 Birch Road, Kingston','Harris'),(20,'Margaret','264 Spruce Lane, Kelowna','Martin'),(21,'Charles','159 Willow Ave, Gatineau','Thompson'),(22,'Sandra','753 Elm Court, Guelph','Lee'),(23,'Cyril Jay','Suarez','Acope'),(24,'Jaymar','Pugaan','Mangiboa');
 /*!40000 ALTER TABLE `allclients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-06  4:07:16
+-- Dump completed on 2024-11-07  9:12:24
