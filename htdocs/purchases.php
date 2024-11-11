@@ -28,6 +28,20 @@
             background-color: #FB667A;
         }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* Ensures that borders between cells are collapsed into one */
+        }
+
+        td {
+            border-left: 1px solid #E8B86D;
+            /* Adds vertical lines on the left side */
+            border-right: 1px solid #E8B86D;
+            /* Adds vertical lines on the right side */
+            padding: 10px;
+        }
+
         .condition-excellent {
             color: gold;
             font-weight: bold;

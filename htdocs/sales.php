@@ -26,6 +26,20 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        /* Ensures that borders between cells are collapsed into one */
+    }
+
+    td {
+        border-left: 1px solid #E8B86D;
+        /* Adds vertical lines on the left side */
+        border-right: 1px solid #E8B86D;
+        /* Adds vertical lines on the right side */
+        padding: 10px;
+    }
+
     .container td:first-child {
         color: #982B1C;
     }
