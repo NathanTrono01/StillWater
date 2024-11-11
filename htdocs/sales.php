@@ -12,7 +12,7 @@
         display: inline-block;
         padding: 5px 10px;
         margin: 0 10px;
-        background-color: #185875;
+        background-color: #6C4E31;
         color: white;
         text-decoration: none;
         border-radius: 5px;
@@ -27,7 +27,7 @@
     }
 
     .container td:first-child {
-        color: #FB667A;
+        color: #982B1C;
     }
 </style>
 
@@ -59,26 +59,24 @@ if (!$query) {
 ?>
 
 <body>
-    <br><br><br><br><br>
     <div class="table-wrapper">
         <table class="container">
             <thead>
                 <tr>
-                    <th class="th" colspan="7"><a href="insert_s.php">Add Record</a></th>
+                    <th class="th" colspan="6"><a href="insert_s.php">Add Record</a></th>
                     <th align="right">Stillwater Antique Sales Record</th>
                 </tr>
-                <tr align="center">
-                    <th width="150px">Date Sold</th>
-                    <th>Sold to</th>
-                    <th>Item Description</th>
+                <tr align="left">
+                    <th width="200px">Date Sold</th>
+                    <th width="175px">Sold to</th>
+                    <th width="175px">Item Description</th>
                     <th>Selling Price</th>
                     <th>Commission Paid</th>
                     <th>Sales Tax (12%)</th>
-                    <th>Sale ID</th>
-                    <th>Action</th>
+                    <th align="center">Action</th>
                 </tr>
             </thead>
-            <tbody align="center">
+            <tbody align="left">
                 <?php
                 while ($result = mysqli_fetch_assoc($query)) {
                     $saleID = $result['saleID'];
@@ -92,16 +90,15 @@ if (!$query) {
                     $salesTax = $result['sellingPrice'] !== null ? $result['sellingPrice'] * 0.12 : 0;
                     $formatSalesTax = number_format($salesTax, 2); // format sales tax
 
-                    $dateSold = !empty($result['date_sold']) ? date("M d, Y", strtotime($result['date_sold'])) . "<br>" . date("g:i A", strtotime($result['date_sold'])) : 'N/A';
+                    $dateSold = !empty($result['date_sold']) ? date("M d, Y", strtotime($result['date_sold'])) . " -- " . date("g:i A", strtotime($result['date_sold'])) : 'N/A';
                 ?>
                     <tr>
                         <td style="font-size: 1em;"><?php echo $dateSold; ?></td>
                         <td><?php echo $givenName . ' ' . $lastName; ?></td>
                         <td><?php echo $description; ?></td>
-                        <td align="left"><span style="color: green;">₱</span> <?php echo $sellingPrice; ?></td>
-                        <td align="left"><span style="color: green;">₱</span> <?php echo $commission; ?></td>
-                        <td align="left"><span style="color: green;">₱</span> <?php echo $formatSalesTax; ?></td> <!-- Display calculated sales tax -->
-                        <td style="color: #FB667A"><?php echo $saleID; ?></td>
+                        <td><span style="color: green;">₱</span> <?php echo $sellingPrice; ?></td>
+                        <td><span style="color: green;">₱</span> <?php echo $commission; ?></td>
+                        <td><span style="color: green;">₱</span> <?php echo $formatSalesTax; ?></td> <!-- Display calculated sales tax -->
                         <td align="center" width="20%" class="td">
                             <a href='sales.php?action=delete&saleID=<?php echo $result["saleID"]; ?>' onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                         </td>

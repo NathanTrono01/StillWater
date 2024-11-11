@@ -8,18 +8,16 @@
     <style>
         nav {
             text-align: center;
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #1F2739;
+            background-color: #FFDBB5;
             padding: 15px 0;
-            z-index: 10;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         nav a {
-            background-color: #185875;
+            background-color: #6C4E31;
             display: inline-block;
             padding: 10px 15px;
             margin: 0 5px;
@@ -43,6 +41,7 @@
             height: 100%;
             background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: all 0.5s;
+
         }
 
         nav a:hover:before {
@@ -50,49 +49,43 @@
         }
 
         nav a:hover {
-            background-color: #FB667A;
+            background-color: #800000;
             box-shadow: 0 0 15px rgba(251, 102, 122, 0.5);
             transform: translateY(-3px);
         }
 
-        nav .dropdown {
+        .dropdown {
             display: inline-block;
             position: relative;
         }
 
-        nav .dropdown-content {
-            display: block;
-            /* Always block for visibility control */
+        .dropdown-content {
+            display: none;
             position: absolute;
-            background-color: #185875;
-            min-width: 160px;
+            background-color: #603F26;
+            min-width: 200px;
+            /* Adjusted for better layout */
             z-index: 1;
             border-radius: 10px;
-            opacity: 0;
-            /* Start hidden */
-            visibility: hidden;
-            /* Prevent interaction */
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            /* Transition for opacity and visibility */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        nav .dropdown-content a {
-            color: white;
-            padding: 10px;
-            text-decoration: none;
+        .dropdown:hover .dropdown-content {
             display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
             text-align: left;
+            margin: 5px 5px;
+            /* Add margin for spacing */
         }
 
-        nav .dropdown-content a:hover {
-            background-color: #FB667A;
-        }
-
-        nav .dropdown.show .dropdown-content {
-            opacity: 1;
-            /* Fade in */
-            visibility: visible;
-            /* Make it visible */
+        .dropdown-content a:hover {
+            background-color: #982B1C;
         }
 
         @media (max-width: 768px) {
@@ -111,51 +104,36 @@
 <body>
 
     <nav>
-        <div class="dropdown" onmouseenter="showDropdown(this)" onmouseleave="hideDropdown(this)">
-            <a href="c_list.php">Clients</a>
+        <div class="dropdown">
+            <a href="c_list.php">Client</a>
             <div class="dropdown-content">
-                <a href="insert_c.php">Add Client</a>
+                <a href="insert_c.php">New Client</a>
             </div>
         </div>
-
-        <div class="dropdown" onmouseenter="showDropdown(this)" onmouseleave="hideDropdown(this)">
-            <a href="items.php" class="dropbtn">Items</a>
+        <div class="dropdown">
+            <a href="items.php">Items</a>
             <div class="dropdown-content">
-                <a href="insert_i.php">Add Item</a>
+                <a href="insert_i.php">New Item</a>
                 <hr>
                 <a href="items.php">Available Items</a>
                 <a href="sold_items.php">Sold Items</a>
             </div>
         </div>
 
-        <div class="dropdown" onmouseenter="showDropdown(this)" onmouseleave="hideDropdown(this)">
-            <a href="purchases.php">Store Purchases</a>
+        <div class="dropdown">
+            <a href="purchases.php">Purchase</a>
             <div class="dropdown-content">
-                <a href="insert_p.php">New Purchase</a>
+                <a href="insert_p.php">New Record</a>
             </div>
         </div>
-        <div class="dropdown" onmouseenter="showDropdown(this)" onmouseleave="hideDropdown(this)">
+
+        <div class="dropdown">
             <a href="sales.php">Sales</a>
             <div class="dropdown-content">
-                <a href="insert_s.php">New Sale</a>
+                <a href="insert_s.php">New Record</a>
             </div>
         </div>
     </nav>
-
-    <script>
-        let dropdownTimeout;
-
-        function showDropdown(dropdown) {
-            dropdownTimeout = setTimeout(() => {
-                dropdown.classList.add('show');
-            }, 500); // Delay of 300ms before showing the dropdown
-        }
-
-        function hideDropdown(dropdown) {
-            clearTimeout(dropdownTimeout);
-            dropdown.classList.remove('show');
-        }
-    </script>
 
 </body>
 

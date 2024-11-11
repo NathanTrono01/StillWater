@@ -22,7 +22,7 @@ if (!$query) {
     .td a[href*="update_c.php"] {
         display: inline-block;
         padding: 5px 10px;
-        background-color: #185875;
+        background-color: #6C4E31;
         color: white;
         text-decoration: none;
         border-radius: 5px;
@@ -40,7 +40,7 @@ if (!$query) {
         display: inline-block;
         padding: 5px 10px;
         margin: 0 5px;
-        background-color: #185875;
+        background-color: #6C4E31;
         color: white;
         text-decoration: none;
         border-radius: 5px;
@@ -60,29 +60,26 @@ if (!$query) {
 </style>
 
 <body>
-    <br><br><br><br><br>
     <form action="c_list.php" method="POST">
         <div class="table-wrapper">
             <table class="container" border="0">
                 <thead>
                     <tr>
-                        <th class="th" colspan="3"><a href="insert_c.php" colspan="2">Insert Client</a></th>
+                        <th class="th" colspan="2"><a href="insert_c.php">Insert Client</a></th>
                         <th align="right">Stillwater Antique Client List</th>
                     </tr>
-                    <tr>
-                        <th align="center">Given Name</th>
-                        <th align="center">Address</th>
-                        <th align="center">Client Number</th>
+                    <tr align="left">
+                        <th width="40%">Full Name</th>
+                        <th width="40%">Address</th>
                         <th align="center">Actions</th>
                     </tr>
                 <tbody>
                     <?php
                     while ($result = mysqli_fetch_assoc($query)) { ?>
                         <tr>
-                            <td align="left" width="25%"><span style="color: yellow;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
+                            <td align="left"><span style="color: #CD5C08;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
                                 <?php echo htmlspecialchars($result['givenName']); ?></td>
-                            <td align="center" width="40%"><?php echo $result['ClientAddress']; ?></td>
-                            <td align="center"><span style="color: #FB667A;"><?php echo $result['ClientNumber']; ?></td>
+                            <td align="left"><?php echo $result['ClientAddress']; ?></td>
                             <td align="center" class="td">
                                 <a href='update_c.php?action=edit&ClientNumber=<?php echo $result["ClientNumber"]; ?>'>Edit</a>
                                 <a href='c_list.php?action=delete&ClientNumber=<?php echo $result["ClientNumber"]; ?>' onclick="return confirm('Are you sure you want to delete this client?');">Delete</a>

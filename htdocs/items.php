@@ -19,11 +19,10 @@
     }
     ?>
     <style>
-
         .td a[href*="update_i.php"] {
             display: inline-block;
             padding: 5px 10px;
-            background-color: #185875;
+            background-color: #6C4E31;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -41,7 +40,7 @@
             display: inline-block;
             padding: 5px 10px;
             margin: 0 5px;
-            background-color: #185875;
+            background-color: #6C4E31;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -59,50 +58,56 @@
             color: gold;
             font-weight: bold;
             padding: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            /* Text outline effect */
         }
 
         .condition-good {
             color: greenyellow;
             font-weight: bold;
             padding: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            /* Text outline effect */
         }
 
         .condition-fair {
             color: orange;
             font-weight: bold;
             padding: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            /* Text outline effect */
         }
 
         .condition-bad {
             color: red;
             font-weight: bold;
             padding: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            /* Text outline effect */
         }
     </style>
 </head>
 
 <body>
-    <br><br><br><br><br>
     <div class="table-wrapper">
         <table class="container">
             <thead>
                 <tr>
-                    <th class="th" colspan="6"><a href="insert_i.php">Insert Item</a></th>
+                    <th class="th" colspan="5"><a href="insert_i.php">Insert Item</a></th>
                     <th align="right">Stillwater Antique Available Items</th>
                 </tr>
-                <tr align="center">
+                <tr align="left">
                     <th width="150px">Name / Description</th>
-                    <th width="80px">Condition</th>
-                    <th width="80px">Price</th>
+                    <th width="50px">Condition</th>
+                    <th width="90px">Price</th>
                     <th width="200px">Critiqued Comments</th>
-                    <th width="50px">Item Type</th>
-                    <th width="50px">Item Number</th>
-                    <th>Actions</th>
+                    <th width="45px">Item Type</th>
+                    <th align="center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php while ($result = mysqli_fetch_assoc($query)) {
-                    $formatPrice = number_format($result['asking_price']);
+                    $formatPrice = number_format($result['asking_price'], 2);
                     $conditionClass = '';
                     switch (strtolower($result['condition'])) {
                         case 'excellent':
@@ -119,15 +124,14 @@
                             break;
                     }
                 ?>
-                    <tr align="center">
+                    <tr align="left">
                         <td><?php echo $result['description']; ?></td>
                         <td class="<?php echo $conditionClass; ?>">
                             <?php echo $result['condition']; ?>
                         </td>
-                        <td align="left"><span style="color: green;">₱</span> <?php echo $formatPrice; ?></td>
+                        <td><span style="color: green;">₱</span> <?php echo $formatPrice; ?></td>
                         <td><?php echo $result['critiqued_comments']; ?></td>
                         <td><?php echo $result['item_type']; ?></td>
-                        <td><span style="color: #FB667A"><?php echo $result['item_num']; ?></span></td>
                         <td align="center" width="20%" class="td">
                             <a href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'>Edit</a>
                             <a href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>

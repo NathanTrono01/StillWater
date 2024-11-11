@@ -1,106 +1,136 @@
-<?php
-include("nav.php");
-include("database.php");
-include("datetime.php");
-?>
-
 <title>Add Sales Record</title>
+<link rel="stylesheet" href="css/style.css">
 <style>
-    body {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 300;
-        line-height: 1.42em;
-        color: #A7A1AE;
-        background-color: #1F2739;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
+    /* General Form Layout */
+    form {
+        display: block;
+        grid-template-columns: 1fr;
+        width: 600px;
+        padding: 20px;
+        background-color: #603F26;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        margin: 40px auto 0;
+        /* Center form on page */
     }
 
+    /* Form Heading */
     h2 {
         font-size: 2em;
         font-weight: bold;
         text-align: center;
         color: #FB667A;
-        margin-bottom: 20px;
-        margin-top: 0;
+        margin: 0;
     }
 
-    form {
-        width: 50%;
-        padding: 20px;
-        background-color: #323C50;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
+    /* Form Label Styling */
     label {
-        display: block;
-        margin-bottom: 10px;
-        color: #A7A1AE;
+        font-size: 1.1em;
+        color: #FFDBB5;
         font-weight: bold;
+        margin-bottom: 8px;
     }
 
-    input[type="text"], input[type="number"], input[type="date"], input[type="submit"], select {
+    /* Input Fields */
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         margin-bottom: 20px;
-        border: 2px solid #4DC3FA;
-        border-radius: 5px;
-        box-sizing: border-box;
+        border: 2px solid #CD5C08;
+        border-radius: 8px;
         font-size: 16px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        background-color: #FFEAC5;
+        color: black;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: border-color 0.3s ease;
     }
 
-    input[type="text"], input[type="number"] {
-        background-color: #2C3446;
-        color: #FFF;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* Focus Effect on Input Fields */
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+        border-color: #FB667A;
+        outline: none;
     }
 
+    /* Submit Button Styling */
     input[type="submit"] {
-        background-color: #FFF842;
-        color: #403E10;
+        background-color: #982B1C;
+        color: #FFF;
         font-weight: bold;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        transition: all 0.3s ease;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        width: 100%;
     }
 
     input[type="submit"]:hover {
-        background-color: #FB667A;
+        background-color: #800000;
         color: #FFF;
     }
-    a[href*="sales.php"] {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0 10px;
-            background-color: #185875;
-            /* Blue accent to match table headings */
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+    /* Back Button Styling */
+    .back a[href*="sales.php"] {
+        text-align: left;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #6C4E31;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back a[href*="sales.php"]:hover {
+        background-color: #FB667A;
+        cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+        form {
+            width: 95%;
         }
 
-        a[href*="sales.php"]:hover {
-            background-color: #FB667A;
-            cursor: pointer;
-            transition: background-color 0.1s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            /* Pink hover effect to match table details */
+        label,
+        input,
+        select {
+            font-size: 1em;
         }
+
+        input[type="submit"] {
+            padding: 15px;
+            font-size: 1.2em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+    }
 </style>
-<link rel="stylesheet" href="css/style.css">
-<br><br><br><br><br><br>
+<?php
+include("nav.php");
+include("database.php");
+include("datetime.php");
+?>
 <form action="insert_s.php" method="post">
-<a href="sales.php" align="left"><b>Back</b></a><br><br>
+    <div class="back">
+        <a href="sales.php" align="left"><b>Back</b></a><br><br>
+    </div>
+
 
     <label for="item_num">Item:</label>
-    <select id="item_num" name="item_num" required>
+    <select id="item_num" name="item_num" required><br>
         <option value="">Select an Item</option>
         <?php
         $item_sql = "SELECT item_num, `description` FROM items WHERE is_sold = 0";
@@ -111,10 +141,10 @@ include("datetime.php");
         ?>
     </select><br>
 
-    <label for="sellingPrice">Selling Price:</label>
+    <label for="sellingPrice">Selling Price:</label><br>
     <input type="number" id="sellingPrice" name="sellingPrice" required oninput="calculateSalesTax()"><br>
 
-    <label for="ClientNumber">Called Client: (Optional)</label>
+    <label for="ClientNumber">Called Client: (Optional)</label><br>
     <select id="ClientNumber" name="ClientNumber">
         <option value="">-- SELECT A CLIENT --</option>
         <?php
@@ -126,7 +156,7 @@ include("datetime.php");
         ?>
     </select><br>
 
-    <label for="commissionPaid">Commission Paid (Optional):</label>
+    <label for="commissionPaid">Commission Paid (Optional):</label><br>
     <input type="number" id="commissionPaid" name="commissionPaid"><br>
 
     <label for="salesTax">Sales Tax (12%):</label>

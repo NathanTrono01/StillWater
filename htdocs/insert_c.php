@@ -1,161 +1,152 @@
-<?php
-include("database.php");
-include("nav.php")
-?>
+
+<title>Add Client</title>
+<link rel="stylesheet" href="css/style.css">
 <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #1F2739;
-            color: #A7A1AE;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+    /* General Form Layout */
+    form {
+        display: block;
+        grid-template-columns: 1fr;
+        width: 500px;  /* Reduced width of the form */
+        padding: 15px;
+        background-color: #603F26;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        margin: 40px auto 0;
+        /* Center form on page */
+    }
 
+    /* Form Heading */
+    h2 {
+        font-size: 1.8em;
+        font-weight: bold;
+        text-align: center;
+        color: #FB667A;
+        margin: 0 0 20px 0;
+    }
+
+    /* Form Label Styling */
+    label {
+        font-size: 1em;
+        color: #FFDBB5;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* Input Fields */
+    input[type="text"],
+    input[type="number"],
+    input[type="datetime-local"],
+    select {
+        width: 95%;  /* Full width of the form */
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #CD5C08;
+        border-radius: 8px;
+        font-size: 14px;
+        background-color: #FFEAC5;
+        color: black;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: border-color 0.3s ease;
+    }
+
+    /* Focus Effect on Input Fields */
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+        border-color: #FB667A;
+        outline: none;
+    }
+
+    /* Submit Button Styling */
+    input[type="submit"] {
+        background-color: #982B1C;
+        color: #FFF;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        width: 100%;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #800000;
+        color: #FFF;
+    }
+
+    /* Back Button Styling */
+    .back a[href*="c_list.php"] {
+        text-align: left;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #6C4E31;
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back a[href*="c_list.php"]:hover {
+        background-color: #FB667A;
+        cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
         form {
-            width: 90%;
-            max-width: 600px;
-            /* Set a maximum width */
-            padding: 20px;
-            background-color: #323C50;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            margin: 0 auto;
-            /* Center the form */
+            width: 95%;
         }
 
-        h1 {
-            font-size: 2em;
-            font-weight: bold;
-            /* Bold the header */
-            text-align: center;
-            color: #4DC3FA;
-            /* Light red for the form heading */
-            margin-bottom: 20px;
-            margin-top: 0;
-        }
-
-        h2 {
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 1.5em;
-        }
-
-        hr {
-            margin: 15px 0;
-        }
-
-        form {
-            width: 50%;
-            padding: 20px;
-            background-color: #323C50;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #A7A1AE;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        input[type="datetime-local"],
-        input[type="submit"],
-        select[id="ClientNumber"],
-        select[id="condition"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 2px solid #4DC3FA;
-            /* Blue border */
-            border-radius: 5px;
-            background-color: #2C3446;
-            /* Dark input background */
-            color: #FFF;
-            /* White text */
-            box-sizing: border-box;
-            font-size: 16px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        input[type="text"],
-        input[type="number"],
+        label,
+        input,
         select {
-            background-color: #2C3446;
-            /* Dark input background */
-            color: #FFF;
-            /* White text in input fields */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-size: 0.9em;
         }
 
         input[type="submit"] {
-            margin-top: 15px;
-            background-color: #FFF842;
-            color: #403E10;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            font-size: 1.2em;
         }
 
-        input[type="submit"]:hover {
-            background-color: #FB667A;
-            color: #FFF;
+        h2 {
+            font-size: 1.5em;
         }
-
-        a[href*="c_list.php"] {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0 10px;
-            background-color: #185875;
-            /* Blue accent to match table headings */
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        a[href*="c_list.php"]:hover {
-            background-color: #FB667A;
-            cursor: pointer;
-            transition: background-color 0.1s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            /* Pink hover effect to match table details */
-        }
-
-        @media (max-width: 768px) {
-            form {
-                width: 95%;
-                padding: 15px;
-            }
-        }
+    }
 </style>
-<br><br><br><br><br><br>
+<?php
+include("nav.php");
+include("database.php");
+?>
 <form action="insert_c.php" method="post">
-    <a href="c_list.php"><b>Back</b></a>
-    <br><br>
+    <div class="back">
+        <a href="c_list.php"><b>Back</b></a><br><br>
+    </div>
+
 
     <label for="lastName">Last Name:</label>
     <input type="text" id="lastName" name="lastName" required><br>
+
     <label for="givenName">Given Name:</label>
     <input type="text" id="givenName" name="givenName" required><br>
+
     <label for="ClientAddress">Address:</label>
     <input type="text" id="ClientAddress" name="ClientAddress" required><br>
+
     <input type="submit" name="submit" value="Submit">
 </form>
 
 <?php
-
 if (isset($_POST['submit'])) {
     $givenName = trim($_POST['givenName']);
     $lastName = trim($_POST['lastName']);
     $ClientAddress = trim($_POST['ClientAddress']);
 
+    // Check if client already exists
     $sql = "SELECT * FROM allclients WHERE givenName = '$givenName' AND lastName = '$lastName'";
     $query = mysqli_query($conn, $sql);
 
@@ -163,21 +154,20 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($query) > 0) {
             $clientData = mysqli_fetch_assoc($query);
             $clientNumber = $clientData['ClientNumber'];
-            echo "Client already exists with ClientNumber: $clientNumber";
-            return $clientNumber;
+            echo "<p>Client already exists with ClientNumber: <b>$clientNumber</b></p>";
         } else {
             // Insert new client
-            $sql = "INSERT INTO allclients (givenName, lastName, ClientAddress) VALUES ('$givenName', '$lastName', '$ClientAddress')";
+            $sql = "INSERT INTO allclients (givenName, lastName, ClientAddress) 
+                    VALUES ('$givenName', '$lastName', '$ClientAddress')";
             if (mysqli_query($conn, $sql)) {
                 $clientNumber = mysqli_insert_id($conn);
-                echo "<br>Client Added Successfully";
-                return $clientNumber;
+                echo "<p>Client <b>$givenName $lastName</b> added successfully. ClientNumber: <b>$clientNumber</b></p>";
             } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                echo "<p>Error: " . mysqli_error($conn) . "</p>";
             }
         }
     } else {
-        echo "Connection Error: " . mysqli_error($conn);
+        echo "<p>Connection Error: " . mysqli_error($conn) . "</p>";
     }
 }
 ?>
