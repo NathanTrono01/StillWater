@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Record</title>
+    <title>Auction Record</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         .td a[href*="purchases.php?action=delete"] {
@@ -88,11 +88,11 @@
     $sql = "SELECT 
             p.p_date, 
             p.condition_at_purchase, 
-            p.p_cost, 
             p.purchase_id, 
             p.item_num,
             p.ClientNumber, 
-            i.description AS item_description, 
+            i.description AS item_description,
+            i.asking_price, 
             c.givenName, 
             c.lastName 
         FROM purchases p
@@ -111,21 +111,21 @@
             <thead>
                 <tr>
                     <th class="th" colspan="5"><a href="insert_p.php">Add Record</a></th>
-                    <th align="right">Stillwater Antique Purchase Record</th>
+                    <th align="right">Stillwater Antique Auction Record</th>
                 </tr>
                 <tr align="left">
-                    <th width="170px">Date Purchased</th>
-                    <th width="150px">Sold by</th>
-                    <th width="160px">Item</th>
+                    <th width="170px">Date Recorded</th>
+                    <th width="150px">Auctioned By</th>
+                    <th width="160px">Auctioned Item</th>
                     <th width="90px">Item Condition</th>
-                    <th width="90px">Purchase Cost</th>
+                    <th width="90px">Asking Price</th>
                     <th align="center" width="170px">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 while ($result = mysqli_fetch_assoc($query)) {
-                    $formatCost = number_format($result['p_cost']);
+                    $formatCost = number_format($result['asking_price']);
 
                     $conditionClass = '';
                     switch (strtolower($result['condition_at_purchase'])) {

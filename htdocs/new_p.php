@@ -147,6 +147,7 @@
         $givenName = $_POST['givenName'];
         $clientAddress = $_POST['ClientAddress'];
 
+        //Insert Client
         $insertClientSql = "INSERT INTO allclients (lastName, givenName, ClientAddress) VALUES ('$lastName', '$givenName', '$clientAddress')";
 
         if (mysqli_query($conn, $insertClientSql)) {
@@ -158,19 +159,18 @@
             $critiqued_comments = $_POST['critiqued_comments'];
             $condition_at_purchase = $_POST['condition_at_purchase'];
 
-            $insertItemSql = "INSERT INTO items (asking_price, item_type, description, critiqued_comments, `condition`) 
-                              VALUES ('$asking_price', '$item_type', '$description', '$critiqued_comments', '$condition_at_purchase')";
+            //Insert item
+            $insertItemSql = "INSERT INTO items (asking_price, item_type, description, critiqued_comments, `condition`, ClientNumber) 
+                              VALUES ('$asking_price', '$item_type', '$description', '$critiqued_comments', '$condition_at_purchase', '$clientNumber')";
 
             if (mysqli_query($conn, $insertItemSql)) {
                 $itemNumber = mysqli_insert_id($conn);
 
-                // Collect purchase information
-                $p_cost = $_POST['p_cost'];
                 $currentTimeStamp = getCurrentDateTime();
 
-                // Insert purchase information into the database
-                $insertPurchaseSql = "INSERT INTO purchases (p_cost, condition_at_purchase, item_num, ClientNumber, p_date) 
-                                      VALUES ('$p_cost', '$condition_at_purchase', '$itemNumber', '$clientNumber', '$currentTimeStamp')";
+                // Insert purchase
+                $insertPurchaseSql = "INSERT INTO purchases (condition_at_purchase, item_num, ClientNumber, p_date) 
+                                      VALUES ('$condition_at_purchase', '$itemNumber', '$clientNumber', '$currentTimeStamp')";
 
                 if (mysqli_query($conn, $insertPurchaseSql)) {
                     echo "<script>alert('New record has been added successfully.'); window.location='purchases.php';</script>";
@@ -193,44 +193,55 @@
 
         <h2>Client Info:</h2>
         <div id="new_client_fields">
-            <label for="lastName">Last Name:</label>
+            <label for="lastName" required>Last Name: <span style="color: #B8001F">*</span></label>
             <input type="text" id="lastName" name="lastName" required>
 
-            <label for="givenName">Given Name:</label>
+            <label for="givenName">Given Name: <span style="color: #B8001F">*</span></label>
             <input type="text" id="givenName" name="givenName" required>
 
-            <label for="ClientAddress">Address:</label>
+            <label for="ClientAddress">Address: <span style="color: #B8001F">*</span></label>
             <input type="text" id="ClientAddress" name="ClientAddress" required>
         </div>
 
         <hr>
+        <br>
+        <h2>Item Info:</h2>
 
-        <h2>Purchase Info:</h2>
-        <label for="p_cost">Purchase Cost:</label>
-        <input type="number" name="p_cost" required>
+        <label for="description">Description: <span style="color: #B8001F">*</span></label>
+        <input type="text" name="description" required>
 
-        <label for="condition_at_purchase">Condition:</label>
-        <select name="condition_at_purchase" id="condition_at_purchase">
-            <option value="">-- SELECT ITEM'S CONDITION --</option>
+        <label for="item_type">Item Type: <span style="color: #B8001F">*</span></label>
+        <select name="item_type" id="item_type" required>
+            <option value="">-- SELECT ITEM TYPE --</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Instruments">Instruments</option>
+            <option value="Tools">Tools</option>
+            <option value="Jewelry">Jewelry</option>
+            <option value="Home Decor">Home Decor</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Glassware and Ceramics">Glassware and Ceramics</option>
+            <option value="Textiles">Textiles</option>
+            <option value="Books">Books</option>
+            <option value="Artwork">Artwork</option>
+            <option value="Lighting">Lighting</option>
+            <option value="Books">Books</option>
+            <option value="Toys">Toys</option>
+            <option value="Others">Others...</option>
+        </select>
+
+        <label for="condition_at_purchase">Condition: <span style="color: #B8001F">*</span></label>
+        <select name="condition_at_purchase" id="condition_at_purchase" required>
+            <option value="">-- SELECT ITEM CONDITION --</option>
             <option value="Excellent">Excellent</option>
             <option value="Good">Good</option>
             <option value="Fair">Fair</option>
             <option value="Bad">Bad</option>
         </select>
 
-        <hr>
-
-        <h2>Item Info:</h2>
-        <label for="asking_price">Asking Price:</label>
+        <label for="asking_price">Asking Price: <span style="color: #B8001F">*</span></label>
         <input type="number" name="asking_price" required>
 
-        <label for="item_type">Item Type:</label>
-        <input type="text" name="item_type" required>
-
-        <label for="description">Description:</label>
-        <input type="text" name="description" required>
-
-        <label for="critiqued_comments">Critiqued Comments:</label>
+        <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" name="critiqued_comments" required>
 
         <input type="submit" name="submit" value="Submit Purchase Record">

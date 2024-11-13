@@ -6,18 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Items List</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php
-    include("nav.php");
-    include("database.php");
-
-    $sql = "SELECT * FROM items WHERE is_sold = 0 ORDER BY item_num DESC";
-
-    $query = mysqli_query($conn, $sql);
-
-    if (!$query) {
-        echo "Error: " . mysqli_error($conn);
-    }
-    ?>
     <style>
         .td a[href*="update_i.php"] {
             display: inline-block;
@@ -100,6 +88,31 @@
             /* Text outline effect */
         }
     </style>
+    <?php
+    include("nav.php");
+    include("database.php");
+
+
+    $sql = "SELECT 
+        i.item_num,
+        i.description,
+        i.asking_price,
+        i.critiqued_comments,
+        i.condition,
+        i.item_type,
+        i.ClientNumber,
+        c.givenName,
+        c.lastName
+    FROM items i
+    LEFT JOIN allclients c ON i.ClientNumber = c.ClientNumber
+    WHERE i.is_sold = 0 ORDER BY i.item_num DESC;";
+
+    $query = mysqli_query($conn, $sql);
+
+    if (!$query) {
+        echo "Error: " . mysqli_error($conn);
+    }
+    ?>
 </head>
 
 <body>
@@ -107,13 +120,14 @@
         <table class="container">
             <thead>
                 <tr>
-                    <th class="th" colspan="5"><a href="insert_i.php">Insert Item</a></th>
+                    <th class="th" colspan="6"><a href="insert_i.php">Add Item</a></th>
                     <th align="right">Stillwater Antique Available Items</th>
                 </tr>
                 <tr align="left">
                     <th width="150px">Name / Description</th>
+                    <th width="150px">Item Owner</th>
                     <th width="50px">Condition</th>
-                    <th width="90px">Price</th>
+                    <th width="90px">Asking Price</th>
                     <th width="200px">Critiqued Comments</th>
                     <th width="45px">Item Type</th>
                     <th align="center">Actions</th>
@@ -140,6 +154,7 @@
                 ?>
                     <tr align="left">
                         <td><?php echo $result['description']; ?></td>
+                        <td><?php echo !empty($result['givenName']) || !empty($result['lastName']) ? htmlspecialchars($result['givenName'] . ' ' . $result['lastName']) : 'Stillwater Antique'; ?></td>
                         <td class="<?php echo $conditionClass; ?>">
                             <?php echo $result['condition']; ?>
                         </td>

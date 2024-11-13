@@ -143,8 +143,9 @@ include("datetime.php");
 
     <label for="sellingPrice">Selling Price:</label><br>
     <input type="number" id="sellingPrice" name="sellingPrice" required oninput="calculateSalesTax()"><br>
-
-    <label for="ClientNumber">Called Client: (Optional)</label><br>
+    
+    <!-- This is hidden until the Item Selected has Its disegnated owner -->
+    <label for="ClientNumber">Item Owner: (Optional)</label><br>
     <select id="ClientNumber" name="ClientNumber">
         <option value="">-- SELECT A CLIENT --</option>
         <?php
@@ -155,9 +156,10 @@ include("datetime.php");
         }
         ?>
     </select><br>
-
-    <label for="commissionPaid">Commission Paid (Optional):</label><br>
+    <label for="commissionPaid">Commission Paid: (Optional)</label><br>
     <input type="number" id="commissionPaid" name="commissionPaid"><br>
+    <!-- Condition End -->
+
 
     <label for="salesTax">Sales Tax (12%):</label>
     <input type="number" id="salesTax" name="salesTax" readonly><br>

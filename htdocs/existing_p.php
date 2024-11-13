@@ -15,7 +15,8 @@
         /* General Form Layout */
         form {
             display: block;
-            width: 600px; /* Fixed width for larger screens */
+            width: 600px;
+            /* Fixed width for larger screens */
             padding: 20px;
             background-color: #603F26;
             border-radius: 10px;
@@ -47,7 +48,8 @@
         input[type="date"],
         input[type="datetime-local"],
         select {
-            width: 100%; /* Full width for all inputs */
+            width: 100%;
+            /* Full width for all inputs */
             padding: 12px;
             margin-bottom: 20px;
             border: 2px solid #CD5C08;
@@ -79,7 +81,8 @@
             border: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            width: 100%; /* Full width for the submit button */
+            width: 100%;
+            /* Full width for the submit button */
         }
 
         input[type="submit"]:hover {
@@ -110,13 +113,15 @@
         /* Responsive Design */
         @media (max-width: 600px) {
             form {
-                width: 95%; /* Adjust form width for small screens */
+                width: 95%;
+                /* Adjust form width for small screens */
             }
 
             label,
             input,
             select {
-                font-size: 1em; /* Adjust font size for small screens */
+                font-size: 1em;
+                /* Adjust font size for small screens */
             }
 
             input[type="submit"] {
@@ -142,7 +147,6 @@
         <div class="back">
             <a href="insert_p.php"><b>Back</b></a><br><br>
         </div>
-
         <h2>Client Info:</h2>
         <label for="ClientNumber">Select Existing Client/s:</label>
         <select id="ClientNumber" name="ClientNumber" required>
@@ -156,32 +160,44 @@
             ?>
         </select>
         <!-- Form -->
-        <h2>Purchase Info:</h2>
-        <label for="p_cost">Purchase Cost:</label>
-        <input type="number" name="p_cost" required>
-
-        <label for="condition_at_purchase">Condition:</label>
-        <select name="condition_at_purchase" id="condition_at_purchase">
-            <option value="" align="center">-- SELECT ITEM'S CONDITION --</option>
-            <option value="Excellent" align="center">Excellent</option>
-            <option value="Good" align="center">Good</option>
-            <option value="Fair" align="center">Fair</option>
-            <option value="Bad" align="center">Bad</option>
-        </select>
-
         <hr>
-
+        <br>
         <h2>Item Info:</h2>
-        <label for="asking_price">Asking Price:</label>
-        <input type="number" name="asking_price" required>
-
-        <label for="item_type">Item Type:</label>
-        <input type="text" name="item_type" required>
-
-        <label for="description">Description:</label>
+        <label for="description">Description: <span style="color: #B8001F">*</span></label>
         <input type="text" name="description" required>
 
-        <label for="critiqued_comments">Critiqued Comments:</label>
+        <label for="item_type">Item Type: <span style="color: #B8001F">*</span></label>
+        <select name="item_type" id="item_type" required>
+            <option value="">-- SELECT ITEM TYPE --</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Instruments">Instruments</option>
+            <option value="Tools">Tools</option>
+            <option value="Jewelry">Jewelry</option>
+            <option value="Home Decor">Home Decor</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Glassware and Ceramics">Glassware and Ceramics</option>
+            <option value="Textiles">Textiles</option>
+            <option value="Books">Books</option>
+            <option value="Artwork">Artwork</option>
+            <option value="Lighting">Lighting</option>
+            <option value="Books">Books</option>
+            <option value="Toys">Toys</option>
+            <option value="Others">Others...</option>
+        </select>
+
+        <label for="condition_at_purchase">Condition: <span style="color: #B8001F">*</span></label>
+        <select name="condition_at_purchase" id="condition_at_purchase" required>
+            <option value="">-- SELECT ITEM CONDITION --</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Bad">Bad</option>
+        </select>
+
+        <label for="asking_price">Asking Price: <span style="color: #B8001F">*</span></label>
+        <input type="number" name="asking_price" required>
+
+        <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" name="critiqued_comments" required>
 
         <input type="submit" name="submit" value="Add Record">
@@ -190,54 +206,54 @@
     <?php
 
     if (isset($_POST['submit'])) {
-    $clientNumber = trim($_POST['ClientNumber']);
+        $clientNumber = trim($_POST['ClientNumber']);
 
-    if (empty($clientNumber)) {
-        echo "<script>alert('Please select a client.'); window.location='purchases.php';</script>";
-        exit;
-    }
-
-    //------------------------------------------------------------------
-    $sql = "SELECT * FROM allclients WHERE ClientNumber = '$clientNumber'";
-    $query = mysqli_query($conn, $sql);
-
-    if ($query && mysqli_num_rows($query) > 0) {
-        $clientData = mysqli_fetch_assoc($query);
-    } else {
-        echo "<script>alert('Client not found.'); window.location='purchases.php';</script>";
-        exit;
-    }
-
-    //------------------------------------------------------------------
-    $asking_price = $_POST['asking_price'];
-    $item_type = $_POST['item_type'];
-    $description = $_POST['description'];
-    $critiqued_comments = $_POST['critiqued_comments'];
-    $condition_at_purchase = $_POST['condition_at_purchase'];
-
-
-    $insertItemSql = "INSERT INTO items (asking_price, item_type, description, critiqued_comments, `condition`) 
-                      VALUES ('$asking_price', '$item_type', '$description', '$critiqued_comments', '$condition_at_purchase')";
-    if (mysqli_query($conn, $insertItemSql)) {
-        $itemNumber = mysqli_insert_id($conn);
+        if (empty($clientNumber)) {
+            echo "<script>alert('Please select a client.'); window.location='purchases.php';</script>";
+            exit;
+        }
 
         //------------------------------------------------------------------
+        $sql = "SELECT * FROM allclients WHERE ClientNumber = '$clientNumber'";
+        $query = mysqli_query($conn, $sql);
 
-        $p_cost = $_POST['p_cost'];
-        $currentTimeStamp = getCurrentDateTime();
-
-        $insertPurchaseSql = "INSERT INTO purchases (p_cost, condition_at_purchase, ClientNumber, item_num, p_date) 
-                              VALUES ('$p_cost', '$condition_at_purchase', '$clientNumber', '$itemNumber', '$currentTimeStamp')";
-        if (mysqli_query($conn, $insertPurchaseSql)) {
-            echo "<script>alert('New record has been added successfully.'); window.location='purchases.php';</script>";
+        if ($query && mysqli_num_rows($query) > 0) {
+            $clientData = mysqli_fetch_assoc($query);
         } else {
-            echo "<script>alert('Failed to add Purchase: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+            echo "<script>alert('Client not found.'); window.location='purchases.php';</script>";
+            exit;
         }
-    } else {
-        echo "<script>alert('Failed to add Item: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+
+        //------------------------------------------------------------------
+        $asking_price = $_POST['asking_price'];
+        $item_type = $_POST['item_type'];
+        $description = $_POST['description'];
+        $critiqued_comments = $_POST['critiqued_comments'];
+        $condition_at_purchase = $_POST['condition_at_purchase'];
+
+
+        $insertItemSql = "INSERT INTO items (asking_price, item_type, description, critiqued_comments, `condition`) 
+                      VALUES ('$asking_price', '$item_type', '$description', '$critiqued_comments', '$condition_at_purchase')";
+        if (mysqli_query($conn, $insertItemSql)) {
+            $itemNumber = mysqli_insert_id($conn);
+
+            //------------------------------------------------------------------
+
+            $p_cost = $_POST['p_cost'];
+            $currentTimeStamp = getCurrentDateTime();
+
+            $insertPurchaseSql = "INSERT INTO purchases (p_cost, condition_at_purchase, ClientNumber, item_num, p_date) 
+                              VALUES ('$p_cost', '$condition_at_purchase', '$clientNumber', '$itemNumber', '$currentTimeStamp')";
+            if (mysqli_query($conn, $insertPurchaseSql)) {
+                echo "<script>alert('New record has been added successfully.'); window.location='purchases.php';</script>";
+            } else {
+                echo "<script>alert('Failed to add Purchase: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+            }
+        } else {
+            echo "<script>alert('Failed to add Item: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+        }
     }
-}
-?>
+    ?>
 </body>
 
 </html>

@@ -161,7 +161,7 @@ if (isset($_POST['submit'])) {
                     VALUES ('$givenName', '$lastName', '$ClientAddress')";
             if (mysqli_query($conn, $sql)) {
                 $clientNumber = mysqli_insert_id($conn);
-                echo "<p>Client <b>$givenName $lastName</b> added successfully. ClientNumber: <b>$clientNumber</b></p>";
+                echo "<p>Client <b>$givenName $lastName</b> added successfully.</p>";
             } else {
                 echo "<p>Error: " . mysqli_error($conn) . "</p>";
             }

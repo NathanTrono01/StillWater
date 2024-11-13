@@ -30,6 +30,12 @@ if (!$query) {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        /* Ensures that borders between cells are collapsed into one */
+    }
+
     .td a[href*="update_c.php"]:hover {
         background-color: #72BF78;
         cursor: pointer;
@@ -62,30 +68,32 @@ if (!$query) {
     /* Table Styling */
     table {
         width: 100%;
-        border-collapse: collapse; /* Ensures that borders between cells are collapsed into one */
+        border-collapse: collapse;
+        /* Ensures that borders between cells are collapsed into one */
     }
 
     td {
-        border-left: 1px solid #E8B86D; /* Adds vertical lines on the left side */
-        border-right: 1px solid #E8B86D; /* Adds vertical lines on the right side */
+        border-left: 1px solid #E8B86D;
+        /* Adds vertical lines on the left side */
+        border-right: 1px solid #E8B86D;
+        /* Adds vertical lines on the right side */
         padding: 10px;
     }
 
     th {
-        background-color: #6C4E31; /* Add background color to headers */
+        background-color: #6C4E31;
+        /* Add background color to headers */
         color: white;
     }
 
     tr:nth-child(even) {
-        background-color: #f2f2f2; /* Add alternate row background for readability */
+        background-color: #f2f2f2;
+        /* Add alternate row background for readability */
     }
 
     tr:hover {
-        background-color: #e6e6e6; /* Highlight rows on hover */
-    }
-
-    .table-wrapper {
-        margin-top: 20px;
+        background-color: #e6e6e6;
+        /* Highlight rows on hover */
     }
 
     .th {
@@ -98,14 +106,13 @@ if (!$query) {
     }
 </style>
 
-
 <body>
     <form action="c_list.php" method="POST">
         <div class="table-wrapper">
             <table class="container" border="0">
                 <thead>
                     <tr>
-                        <th class="th" colspan="2"><a href="insert_c.php">Insert Client</a></th>
+                        <th class="th" colspan="2"><a href="insert_c.php">Add Client</a></th>
                         <th align="right">Stillwater Antique Client List</th>
                     </tr>
                     <tr align="left">

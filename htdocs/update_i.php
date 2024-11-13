@@ -120,13 +120,12 @@ if (!$itemData) {
         /* Pink hover effect to match table details */
     }
 </style>
-<br><br><br><br><br><br>
 <form action="update_i.php?item_num=<?php echo $item_num; ?>" method="post">
     <a href="items.php">Back</a>
     <br><br>
 
     <label for="condition">Condition: </label>
-    <select name="condition" id="condition" required>
+    <select name="condition" id="condition">
         <option value="" disabled selected align="center">Currently: <?php echo htmlspecialchars($itemData['condition']); ?></option>
         <option value="Excellent" style="color: Gold; text-align: center;">Excellent</option>
         <option value="Good" style="color: GreenYellow; text-align: center;">Good</option>
