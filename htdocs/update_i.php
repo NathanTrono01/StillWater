@@ -1,165 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* General Form Layout */
+        form {
+            display: block;
+            width: 600px;
+            padding: 30px;
+            background-color: #603F26;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 40px auto;
+            /* Center form on page */
+            box-sizing: border-box;
+        }
+
+        /* Form Heading */
+        h2 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            color: #FB667A;
+            margin: 0 0 20px;
+        }
+
+        /* Form Label Styling */
+        label {
+            font-size: 1.1em;
+            color: #FFDBB5;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Input Fields */
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #CD5C08;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #FFEAC5;
+            color: black;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        /* Focus Effect on Input Fields */
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #FB667A;
+            outline: none;
+        }
+
+        /* Submit Button Styling */
+        input[type="submit"] {
+            background-color: #982B1C;
+            color: #FFF;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #800000;
+            color: #FFF;
+        }
+
+        /* Back Button Styling */
+        .back a {
+            text-align: left;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6C4E31;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .back a:hover {
+            background-color: #FB667A;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            form {
+                width: 95%;
+            }
+
+            label,
+            input,
+            select {
+                font-size: 1em;
+            }
+
+            input[type="submit"] {
+                padding: 15px;
+                font-size: 1.2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
 <?php
-include("database.php");
-include("nav.php");
+include 'database.php';
+include 'nav.php';
 
-$item_num = $_GET['item_num'];
+$itemNum = $_GET['item_num'];
 
-$sql = "SELECT * FROM items WHERE item_num = '$item_num'";
+$sql = "SELECT * FROM items WHERE item_num = '$itemNum'";
 $query = mysqli_query($conn, $sql);
 $itemData = mysqli_fetch_assoc($query);
 
 if (!$itemData) {
-    echo "<script>alert('No Item found with Item Number $item_num'); window.location='items.php';</script>";
+    echo "<script>alert('No item found with Item Number $itemNum'); window.location='items.php';</script>";
     exit();
 }
 ?>
+</head>
 
-<style>
-    body {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 300;
-        line-height: 1.42em;
-        color: #A7A1AE;
-        /* Light gray text */
-        background-color: #1F2739;
-        /* Dark background */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        /* Full height of the viewport */
-        margin: 0;
-    }
+<body>
 
-    h2 {
-        font-size: 2em;
-        font-weight: bold;
-        /* Bold the header */
-        text-align: center;
-        color: #FB667A;
-        /* Light red for the form heading */
-        margin-bottom: 20px;
-        margin-top: 0;
-    }
+    <form action="update_i.php?item_num=<?php echo $itemNum; ?>" method="post" enctype="multipart/form-data">
 
-    form {
-        width: 50%;
-        padding: 20px;
-        background-color: #323C50;
-        /* Darker background for form */
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    }
+        <div class="back">
+            <a href="items.php">Back</a>
+        </div>
+        <?php if (!empty($itemData['image_path'])): ?>
+            <div class="image-preview">
+                <img src="uploads/<?php echo $itemData['image_path']; ?>" alt="Item Image" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+            </div>
+        <?php endif; ?>
 
-    label {
-        display: block;
-        margin-bottom: 10px;
-        color: #A7A1AE;
-        /* Light gray for label text */
-        font-weight: bold;
-    }
+        <br>
+        <label for="itemImage">Upload Image:</label>
+        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png">
 
-    input[type="text"],
-    input[type="number"],
-    input[type="datetime-local"],
-    input[type="submit"],
-    select {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 2px solid #4DC3FA;
-        /* Blue border */
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
+        <br><br>
 
-    input[type="text"],
-    input[type="number"] {
-        background-color: #2C3446;
-        /* Dark input background */
-        color: #FFF;
-        /* White text in input fields */
-    }
+        <label for="condition">Condition:<span style="color: #B8001F"> *</span></label>
+        <select name="condition" id="condition">
+            <option value="<?php echo htmlspecialchars($itemData['condition']); ?>">Currently: <?php echo htmlspecialchars($itemData['condition']); ?></option>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Bad">Bad</option>
+        </select>
 
-    input[type="submit"] {
-        background-color: #FFF842;
-        /* Yellow submit button */
-        color: #403E10;
-        /* Dark text */
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+        <label for="item_type">Item Type: <span style="color: #B8001F">*</span></label>
+        <select name="item_type" id="item_type">
+            <option value="<?php echo htmlspecialchars($itemData['item_type']); ?>">Currently: <?php echo htmlspecialchars($itemData['item_type']); ?></option>
+            <option value="Furniture">Furniture</option>
+            <option value="Instruments">Instruments</option>
+            <option value="Tools">Tools</option>
+            <option value="Jewelry">Jewelry</option>
+            <option value="Home Decor">Home Decor</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Glassware and Ceramics">Glassware and Ceramics</option>
+            <option value="Textiles">Textiles</option>
+            <option value="Artwork">Artwork</option>
+            <option value="Lighting">Lighting</option>
+            <option value="Books">Books</option>
+            <option value="Toys">Toys</option>
+            <option value="Others">Others...</option>
+        </select>
 
-    input[type="submit"]:hover {
-        background-color: #FB667A;
-        /* Red hover for submit button */
-        color: #FFF;
-        /* White text on hover */
-    }
+        <label for="asking_price">Asking Price: <span style="color: #B8001F">*</span></label>
+        <input type="number" id="asking_price" name="asking_price" value="<?php echo htmlspecialchars($itemData['asking_price']); ?>">
 
-    a[href*="items.php"] {
-        display: inline-block;
-        padding: 10px 15px;
-        margin: 0 10px;
-        background-color: #185875;
-        /* Blue accent to match table headings */
-        color: white;
-        text-decoration: none;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
+        <label for="description">Description: <span style="color: #B8001F">*</span></label>
+        <input type="text" id="description" name="description" value="<?php echo htmlspecialchars($itemData['description']); ?>">
 
-    a[href*="items.php"]:hover {
-        background-color: #FB667A;
-        cursor: pointer;
-        transition: background-color 0.1s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        /* Pink hover effect to match table details */
-    }
-</style>
-<form action="update_i.php?item_num=<?php echo $item_num; ?>" method="post">
-    <a href="items.php">Back</a>
-    <br><br>
+        <label for="critiqued_comments">Comments: <span style="color: #B8001F">*</span></label>
+        <input type="text" id="critiqued_comments" name="critiqued_comments" value="<?php echo htmlspecialchars($itemData['critiqued_comments']); ?>">
 
-    <label for="condition">Condition: </label>
-    <select name="condition" id="condition">
-        <option value="" disabled selected align="center">Currently: <?php echo htmlspecialchars($itemData['condition']); ?></option>
-        <option value="Excellent" style="color: Gold; text-align: center;">Excellent</option>
-        <option value="Good" style="color: GreenYellow; text-align: center;">Good</option>
-        <option value="Fair" style="color: Orange; text-align: center;">Fair</option>
-        <option value="Bad" style="color: Red; text-align: center;">Bad</option>
-    </select>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+</body>
 
-    <label for="item_type">Item Type:</label>
-    <input type="text" id="item_type" name="item_type" value="<?php echo $itemData['item_type']; ?>" required><br>
-
-    <label for="asking_price">Asking Price:</label>
-    <input type="number" id="asking_price" name="asking_price" value="<?php echo $itemData['asking_price']; ?>" required><br><br>
-
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" value="<?php echo $itemData['description']; ?>" required><br>
-
-    <label for="critiqued_comments">Comments:</label>
-    <input type="text" id="critiqued_comments" name="critiqued_comments" value="<?php echo $itemData['critiqued_comments']; ?>" required><br>
-
-    <input type="submit" name="submit" value="Submit">
-</form>
+</html>
 
 <?php
 if (isset($_POST['submit'])) {
+    $uploadDir = 'uploads/';
+
+    // Check if image is uploaded
+    if (isset($_FILES['itemImage']) && $_FILES['itemImage']['error'] == 0) {
+        $file = $_FILES['itemImage'];
+        $fileName = basename($file['name']);
+        $fileSize = $file['size'];
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        // Allowed file types and size limit
+        $allowedTypes = ['jpg', 'jpeg', 'png'];
+        $maxSize = 2 * 1024 * 1024; // 2 MB
+
+        // Validate file type and size
+        if (in_array($fileExt, $allowedTypes) && $fileSize <= $maxSize) {
+            $newFileName = uniqid('item_', true) . '.' . $fileExt;
+            $uploadFile = $uploadDir . $newFileName;
+
+            // Move the uploaded file
+            if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+                // Image uploaded successfully, store path in the database
+                $imagePath = $newFileName;
+            } else {
+
+                echo "Error uploading the file.";
+                exit();
+            }
+        } else {
+            echo "Invalid file type or size exceeded.";
+            exit();
+        }
+    } else {
+        // If no image is uploaded, use the old image
+        $imagePath = $itemData['image_path'];
+    }
+
+    // Get other form data
     $condition = trim($_POST['condition']);
     $item_type = trim($_POST['item_type']);
     $asking_price = trim($_POST['asking_price']);
     $description = trim($_POST['description']);
     $comments = trim($_POST['critiqued_comments']);
 
-    $sql = "UPDATE items SET `condition` = '$condition', item_type = '$item_type', asking_price = '$asking_price', `description` = '$description', critiqued_comments = '$comments' WHERE item_num = '$item_num'";
+    // Update the database with new data
+    $sql = "UPDATE items SET 
+            condition = '$condition', 
+            item_type = '$item_type', 
+            asking_price = '$asking_price', 
+            description = '$description', 
+            critiqued_comments = '$comments', 
+            image_path = '$imagePath' 
+            WHERE item_num = '$itemNum'";
 
     if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('Item\'s Information updated successfully!'); window.location='items.php';</script>";
+        echo "<script>
+            alert('Item\'s Information updated successfully!');
+            window.location.reload(); // This reloads the page
+          </script>";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }

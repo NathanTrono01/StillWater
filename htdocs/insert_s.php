@@ -11,7 +11,6 @@
         border-radius: 10px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         margin: 40px auto 0;
-        /* Center form on page */
     }
 
     /* Form Heading */
@@ -128,10 +127,9 @@ include("datetime.php");
         <a href="sales.php" align="left"><b>Back</b></a><br><br>
     </div>
 
-
     <label for="item_num">Item:</label>
-    <select id="item_num" name="item_num" required><br>
-        <option value="">Select an Item</option>
+    <select id="item_num" name="item_num" required onchange="fetchItemDetails()">
+        <option value="" align="center">-- SELECT AN ITEM --</option>
         <?php
         $item_sql = "SELECT item_num, `description` FROM items WHERE is_sold = 0";
         $item_query = mysqli_query($conn, $item_sql);
@@ -141,25 +139,17 @@ include("datetime.php");
         ?>
     </select><br>
 
+    <label for="item_owner">Item Owner:</label>
+    <input type="text" id="item_owner" name="item_owner" readonly><br>
+
+    <label for="asking_price">Asking Price:</label>
+    <input type="number" id="asking_price" name="asking_price" readonly><br>
+
     <label for="sellingPrice">Selling Price:</label><br>
     <input type="number" id="sellingPrice" name="sellingPrice" required oninput="calculateSalesTax()"><br>
-    
-    <!-- This is hidden until the Item Selected has Its disegnated owner -->
-    <label for="ClientNumber">Item Owner: (Optional)</label><br>
-    <select id="ClientNumber" name="ClientNumber">
-        <option value="">-- SELECT A CLIENT --</option>
-        <?php
-        $client_sql = "SELECT ClientNumber, givenName, lastName FROM allclients";
-        $client_query = mysqli_query($conn, $client_sql);
-        while ($row = mysqli_fetch_assoc($client_query)) {
-            echo "<option value='" . $row['ClientNumber'] . "'>" . $row['givenName'] . " " . $row['lastName'] . "</option>";
-        }
-        ?>
-    </select><br>
+
     <label for="commissionPaid">Commission Paid: (Optional)</label><br>
     <input type="number" id="commissionPaid" name="commissionPaid"><br>
-    <!-- Condition End -->
-
 
     <label for="salesTax">Sales Tax (12%):</label>
     <input type="number" id="salesTax" name="salesTax" readonly><br>
@@ -168,9 +158,32 @@ include("datetime.php");
 </form>
 
 <script>
+    // ajax
+    function fetchItemDetails() {
+        const itemNum = document.getElementById("item_num").value;
+
+        if (itemNum) {
+            fetch(`fetch_item_details.php?item_num=${itemNum}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById("item_owner").value = data.item_owner;
+                        document.getElementById("asking_price").value = data.asking_price;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching item details:", error);
+                });
+        } else {
+            document.getElementById("item_owner").value = "";
+            document.getElementById("asking_price").value = "";
+        }
+    }
+
+    // tax calculation
     function calculateSalesTax() {
-        var sellingPrice = document.getElementById("sellingPrice").value;
-        var salesTax = sellingPrice * 0.12;
+        const sellingPrice = document.getElementById("sellingPrice").value;
+        const salesTax = sellingPrice * 0.12;
         document.getElementById("salesTax").value = salesTax.toFixed(2);
     }
 </script>

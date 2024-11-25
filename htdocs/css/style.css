@@ -10,13 +10,14 @@ body {
 
 body::before {
     content: '';
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: radial-gradient(circle, transparent 20%, #1F2739 120%);
     opacity: 0.7;
-    margin: 0 auto;
+    z-index: -1;
 }
 
 h1 {
@@ -26,6 +27,7 @@ h1 {
     text-align: center;
     color: #4DC3FA;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 20px 0;
 }
 
 h2 {
@@ -45,10 +47,10 @@ h2 a {
 .table-wrapper {
     max-height: 600px;
     overflow-y: auto;
-    border-radius: 20px;
-    width: 1200px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 1200px;
     margin: 50px auto;
-    /* Added margin for spacing above and below the table */
     position: relative;
 }
 
@@ -64,55 +66,38 @@ h2 a {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-.table-wrapper::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
-
 .container {
     text-align: left;
     width: 100%;
     margin: 0 auto;
-    padding: 0;
     background: rgba(31, 39, 57, 0.6);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-collapse: separate;
     border-spacing: 0;
+    font-size: 1rem;
 }
 
 .container thead {
     position: sticky;
-    /* Make the header sticky */
     top: 0;
-    /* Position it at the top of the table */
     z-index: 10;
-    /* Ensure it stays above the table body */
     background-color: rgba(31, 39, 57, 0.9);
 }
 
 .container th {
     padding: 8px;
-    /* Adjusted padding for header size */
     background-color: #603F26;
     border-bottom: 2px solid #FFDBB5;
     color: #FFDBB5;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 1.2em;
-    /* Adjusted font size for header text */
-}
-
-.container th a:hover {
-    background-color: #982B1C;
-    box-shadow: 0 6px 6px -6px #0E1119;
-    transition: all 0.3s ease;
+    font-size: 1.1rem;
 }
 
 .container td {
     padding: 8px;
-    font-size: 1em;
+    font-size: 1rem;
     box-shadow: 0 2px 2px -2px #0E1119;
 }
 
@@ -143,9 +128,21 @@ h2 a {
 }
 
 /* Responsive Styles */
+@media (max-width: 1024px) {
+    .table-wrapper {
+        width: 95%;
+    }
+
+    .container th,
+    .container td {
+        font-size: 0.95rem;
+        padding: 6px;
+    }
+}
+
 @media (max-width: 768px) {
     h1 {
-        font-size: 2em;
+        font-size: 1.8em;
     }
 
     .table-wrapper {
@@ -154,8 +151,8 @@ h2 a {
 
     .container th,
     .container td {
-        font-size: 0.9em;
-        padding: 8px;
+        font-size: 0.85rem;
+        padding: 6px;
     }
 }
 
@@ -164,17 +161,21 @@ h2 a {
         font-size: 1.5em;
     }
 
+    h2 {
+        font-size: 0.8em;
+    }
+
     .table-wrapper {
         width: 100%;
     }
 
     .container {
-        font-size: 0.85em;
+        font-size: 0.8rem;
     }
 
     .container th,
     .container td {
-        padding: 6px;
-        font-size: 0.85em;
+        font-size: 0.8rem;
+        padding: 5px;
     }
 }

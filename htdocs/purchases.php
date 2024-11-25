@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auction Record</title>
+    <title>Commission Record</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         .td a[href*="purchases.php?action=delete"] {
@@ -86,19 +86,20 @@
     include("database.php");
 
     $sql = "SELECT 
-            p.p_date, 
-            p.condition_at_purchase, 
-            p.purchase_id, 
-            p.item_num,
-            p.ClientNumber, 
-            i.description AS item_description,
-            i.asking_price, 
-            c.givenName, 
-            c.lastName 
-        FROM purchases p
-        INNER JOIN items i ON p.item_num = i.item_num
-        INNER JOIN allclients c ON p.ClientNumber = c.ClientNumber
-        ORDER BY p.p_date DESC";
+        p.p_date, 
+        p.condition_at_purchase, 
+        p.purchase_id, 
+        p.item_num,
+        p.ClientNumber, 
+        i.description AS item_description,
+        i.asking_price, 
+        i.is_sold,   -- Add this line to select the 'is_sold' column from items
+        c.givenName, 
+        c.lastName 
+    FROM purchases p
+    INNER JOIN items i ON p.item_num = i.item_num
+    INNER JOIN allclients c ON p.ClientNumber = c.ClientNumber
+    ORDER BY p.p_date DESC";
 
     $query = mysqli_query($conn, $sql);
 
@@ -110,15 +111,16 @@
         <table class="container">
             <thead>
                 <tr>
-                    <th class="th" colspan="5"><a href="insert_p.php">Add Record</a></th>
-                    <th align="right">Stillwater Antique Auction Record</th>
+                    <th class="th" colspan="6"><a href="insert_p.php">Add Commission</a></th>
+                    <th align="right">Stillwater Antique Commissions</th>
                 </tr>
                 <tr align="left">
-                    <th width="170px">Date Recorded</th>
-                    <th width="150px">Auctioned By</th>
-                    <th width="160px">Auctioned Item</th>
+                    <th width="170px">Date Commissioned</th>
+                    <th width="150px">Commissioned By</th>
+                    <th width="160px">Commissioned Item</th>
                     <th width="90px">Item Condition</th>
                     <th width="90px">Asking Price</th>
+                    <th width="90px">Item Status</th>
                     <th align="center" width="170px">Action</th>
                 </tr>
             </thead>
@@ -147,12 +149,22 @@
                 ?>
                     <tr align="left">
                         <td><?php echo $p_date; ?></td>
-                        <td><?php echo $result['givenName']; ?></td>
+                        <td><?php echo $result['lastName'] . ', ' . $result['givenName']; ?></td>
                         <td><?php echo $result['item_description']; ?></td>
                         <td class="<?php echo $conditionClass; ?>"><?php echo $result['condition_at_purchase']; ?></td>
                         <td><span style="color: green;">₱ </span><?php echo $formatCost; ?></td>
+                        <td>
+                            <?php
+                            // Check if the item is sold or still selling
+                            if ($result['is_sold'] == 1) {
+                                echo '<span style="color: green;">Sold</span>';
+                            } else {
+                                echo '<span style="color: orange;">Selling</span>';
+                            }
+                            ?>
+                        </td>
                         <td align="center" class="td">
-                            <a href='purchases.php?action=delete&purchase_id=<?php echo $result["purchase_id"]; ?>' onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                            <a href="purchases.php?action=delete&id=<?php echo $result['purchase_id']; ?>">Delete</a>
                         </td>
                     </tr>
                 <?php

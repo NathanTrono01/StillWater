@@ -16,7 +16,6 @@
         form {
             display: block;
             width: 600px;
-            /* Fixed width for larger screens */
             padding: 20px;
             background-color: #603F26;
             border-radius: 10px;
@@ -49,7 +48,6 @@
         input[type="datetime-local"],
         select {
             width: 100%;
-            /* Full width for all inputs */
             padding: 12px;
             margin-bottom: 20px;
             border: 2px solid #CD5C08;
@@ -82,7 +80,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             width: 100%;
-            /* Full width for the submit button */
         }
 
         input[type="submit"]:hover {
@@ -114,14 +111,12 @@
         @media (max-width: 600px) {
             form {
                 width: 95%;
-                /* Adjust form width for small screens */
             }
 
             label,
             input,
             select {
                 font-size: 1em;
-                /* Adjust font size for small screens */
             }
 
             input[type="submit"] {
@@ -140,17 +135,16 @@
     <?php
     include("nav.php");
     include("database.php");
-    include("datetime.php");
     ?>
 
     <form action="" method="POST">
         <div class="back">
-            <a href="insert_p.php"><b>Back</b></a><br><br>
+            <a href="insert_p.php">Back</a>
         </div>
         <h2>Client Info:</h2>
         <label for="ClientNumber">Select Existing Client/s:</label>
         <select id="ClientNumber" name="ClientNumber" required>
-            <option value="" align="center">-- PLEASE SELECT A CLIENT --</option>
+            <option value="">-- PLEASE SELECT A CLIENT --</option>
             <?php
             $client_sql = "SELECT ClientNumber, givenName, lastName FROM allclients";
             $client_query = mysqli_query($conn, $client_sql);
@@ -159,12 +153,9 @@
             }
             ?>
         </select>
-        <!-- Form -->
+
         <hr>
-        <br>
         <h2>Item Info:</h2>
-        <label for="description">Description: <span style="color: #B8001F">*</span></label>
-        <input type="text" name="description" required>
 
         <label for="item_type">Item Type: <span style="color: #B8001F">*</span></label>
         <select name="item_type" id="item_type" required>
@@ -180,7 +171,6 @@
             <option value="Books">Books</option>
             <option value="Artwork">Artwork</option>
             <option value="Lighting">Lighting</option>
-            <option value="Books">Books</option>
             <option value="Toys">Toys</option>
             <option value="Others">Others...</option>
         </select>
@@ -194,63 +184,47 @@
             <option value="Bad">Bad</option>
         </select>
 
+        <label for="description">Description: <span style="color: #B8001F">*</span></label>
+        <input type="text" name="description" required>
+
         <label for="asking_price">Asking Price: <span style="color: #B8001F">*</span></label>
         <input type="number" name="asking_price" required>
 
         <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" name="critiqued_comments" required>
 
-        <input type="submit" name="submit" value="Add Record">
+        <input type="submit" name="submit" value="Submit Purchase Record">
     </form>
 
     <?php
-
     if (isset($_POST['submit'])) {
-        $clientNumber = trim($_POST['ClientNumber']);
+        $clientNumber = mysqli_real_escape_string($conn, $_POST['ClientNumber']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $item_type = mysqli_real_escape_string($conn, $_POST['item_type']);
+        $condition_at_purchase = mysqli_real_escape_string($conn, $_POST['condition_at_purchase']);
+        $asking_price = mysqli_real_escape_string($conn, $_POST['asking_price']);
+        $critiqued_comments = mysqli_real_escape_string($conn, $_POST['critiqued_comments']);
 
         if (empty($clientNumber)) {
             echo "<script>alert('Please select a client.'); window.location='purchases.php';</script>";
             exit;
         }
 
-        //------------------------------------------------------------------
-        $sql = "SELECT * FROM allclients WHERE ClientNumber = '$clientNumber'";
-        $query = mysqli_query($conn, $sql);
-
-        if ($query && mysqli_num_rows($query) > 0) {
-            $clientData = mysqli_fetch_assoc($query);
-        } else {
-            echo "<script>alert('Client not found.'); window.location='purchases.php';</script>";
-            exit;
-        }
-
-        //------------------------------------------------------------------
-        $asking_price = $_POST['asking_price'];
-        $item_type = $_POST['item_type'];
-        $description = $_POST['description'];
-        $critiqued_comments = $_POST['critiqued_comments'];
-        $condition_at_purchase = $_POST['condition_at_purchase'];
-
-
-        $insertItemSql = "INSERT INTO items (asking_price, item_type, description, critiqued_comments, `condition`) 
-                      VALUES ('$asking_price', '$item_type', '$description', '$critiqued_comments', '$condition_at_purchase')";
+        $insertItemSql = "INSERT INTO items (`condition`, item_type, asking_price, description, critiqued_comments, ClientNumber) 
+                          VALUES ('$condition_at_purchase', '$item_type', '$asking_price', '$description', '$critiqued_comments', '$clientNumber')";
         if (mysqli_query($conn, $insertItemSql)) {
             $itemNumber = mysqli_insert_id($conn);
+            $currentTimeStamp = date('Y-m-d H:i:s');
 
-            //------------------------------------------------------------------
-
-            $p_cost = $_POST['p_cost'];
-            $currentTimeStamp = getCurrentDateTime();
-
-            $insertPurchaseSql = "INSERT INTO purchases (p_cost, condition_at_purchase, ClientNumber, item_num, p_date) 
-                              VALUES ('$p_cost', '$condition_at_purchase', '$clientNumber', '$itemNumber', '$currentTimeStamp')";
+            $insertPurchaseSql = "INSERT INTO purchases (ClientNumber, item_num, p_date, condition_at_purchase) 
+                                  VALUES ('$clientNumber', '$itemNumber', '$currentTimeStamp', '$condition_at_purchase')";
             if (mysqli_query($conn, $insertPurchaseSql)) {
-                echo "<script>alert('New record has been added successfully.'); window.location='purchases.php';</script>";
+                echo "<script>alert('New record added successfully.'); window.location='purchases.php';</script>";
             } else {
-                echo "<script>alert('Failed to add Purchase: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+                echo "<script>alert('Failed to add Purchase: " . mysqli_error($conn) . "');</script>";
             }
         } else {
-            echo "<script>alert('Failed to add Item: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+            echo "<script>alert('Failed to add Item: " . mysqli_error($conn) . "');</script>";
         }
     }
     ?>

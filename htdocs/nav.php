@@ -11,7 +11,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #FFDBB5;
+            background-color: #ffe1c1;
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
@@ -102,16 +102,16 @@
 </head>
 
 <body>
-
+<img src="uploads/test.png" alt="Logo" align="left" style="max-width: 400px;max-height: 78px;height: auto;display: block;margin-left: 3px auto;">
     <nav>
         <div class="dropdown">
-            <a href="c_list.php">Client</a>
+            <a href="c_list.php">Clients</a>
             <div class="dropdown-content">
                 <a href="insert_c.php">New Client</a>
             </div>
         </div>
         <div class="dropdown">
-            <a href="items.php">Items</a>
+            <a href="items.php">Inventory</a>
             <div class="dropdown-content">
                 <a href="insert_i.php">New Item</a>
                 <hr>
@@ -121,16 +121,16 @@
         </div>
 
         <div class="dropdown">
-            <a href="purchases.php">Purchase</a>
+            <a href="purchases.php">Commissions</a>
             <div class="dropdown-content">
-                <a href="insert_p.php">New Record</a>
+                <a href="insert_p.php">New Commission</a>
             </div>
         </div>
 
         <div class="dropdown">
             <a href="sales.php">Sales</a>
             <div class="dropdown-content">
-                <a href="insert_s.php">New Record</a>
+                <a href="insert_s.php">New Sale</a>
             </div>
         </div>
     </nav>

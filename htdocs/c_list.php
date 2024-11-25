@@ -18,8 +18,7 @@ if (!$query) {
     echo "Error: " . mysqli_error($conn);
 }
 ?>
-<style>
-    /* Existing styles */
+<style> 
     .td a[href*="update_c.php"] {
         display: inline-block;
         padding: 5px 10px;
@@ -33,7 +32,6 @@ if (!$query) {
     table {
         width: 100%;
         border-collapse: collapse;
-        /* Ensures that borders between cells are collapsed into one */
     }
 
     .td a[href*="update_c.php"]:hover {
@@ -65,35 +63,28 @@ if (!$query) {
         background-color: #FB667A;
     }
 
-    /* Table Styling */
     table {
         width: 100%;
         border-collapse: collapse;
-        /* Ensures that borders between cells are collapsed into one */
     }
 
     td {
         border-left: 1px solid #E8B86D;
-        /* Adds vertical lines on the left side */
         border-right: 1px solid #E8B86D;
-        /* Adds vertical lines on the right side */
         padding: 10px;
     }
 
     th {
         background-color: #6C4E31;
-        /* Add background color to headers */
         color: white;
     }
 
     tr:nth-child(even) {
         background-color: #f2f2f2;
-        /* Add alternate row background for readability */
     }
 
     tr:hover {
         background-color: #e6e6e6;
-        /* Highlight rows on hover */
     }
 
     .th {
