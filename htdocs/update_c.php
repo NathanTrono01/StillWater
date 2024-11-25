@@ -1,97 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Client</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.42em;
-      color: #A7A1AE;
-      /* Light gray text */
-      background-color: #1F2739;
-      /* Dark background */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      /* Full height of the viewport */
-      margin: 0;
-    }
-
-    h2 {
-      font-size: 2em;
-      font-weight: bold;
-      /* Bold the header */
-      text-align: center;
-      color: #FB667A;
-      /* Light red for the form heading */
-      margin-bottom: 20px;
-      margin-top: 0;
-    }
-
+    /* General Form Layout */
     form {
-      width: 50%;
-      padding: 20px;
-      background-color: #323C50;
-      /* Darker background for form */
+      display: block;
+      width: 500px;
+      padding: 15px;
+      background-color: #603F26;
       border-radius: 10px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      margin: 40px auto 0;
     }
 
-    label {
-      display: block;
-      margin-bottom: 10px;
-      color: #A7A1AE;
-      /* Light gray for label text */
+    /* Form Heading */
+    h2 {
+      font-size: 1.8em;
       font-weight: bold;
+      text-align: center;
+      color: #FB667A;
+      margin-bottom: 20px;
     }
 
+    /* Form Label Styling */
+    label {
+      font-size: 1em;
+      color: #FFDBB5;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    /* Input Fields */
     input[type="text"],
     input[type="number"],
     input[type="datetime-local"],
-    input[type="submit"],
     select {
-      width: 100%;
+      width: 95%;
       padding: 10px;
-      margin-bottom: 20px;
-      border: 2px solid #4DC3FA;
-      /* Blue border */
-      border-radius: 5px;
-      box-sizing: border-box;
-      font-size: 16px;
+      margin-bottom: 15px;
+      border: 2px solid #CD5C08;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #FFEAC5;
+      color: black;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: border-color 0.3s ease;
     }
 
-    input[type="text"],
-    input[type="number"] {
-      background-color: #2C3446;
-      /* Dark input background */
-      color: #FFF;
-      /* White text in input fields */
+    /* Focus Effect on Input Fields */
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: #FB667A;
+      outline: none;
     }
 
+    /* Submit Button Styling */
     input[type="submit"] {
-      background-color: #FFF842;
-      /* Yellow submit button */
-      color: #403E10;
-      /* Dark text */
+      background-color: #982B1C;
+      color: #FFF;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 100%;
     }
 
     input[type="submit"]:hover {
-      background-color: #FB667A;
-      /* Red hover for submit button */
-      color: #FFF;
-      /* White text on hover */
+      background-color: #800000;
     }
 
-    .back a[href*="c_list.php"] {
+    /* Back Button Styling */
+    .back a {
+      text-align: left;
       display: inline-block;
       padding: 10px 20px;
       background-color: #6C4E31;
@@ -104,9 +92,31 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-    .back a[href*="c_list.php"]:hover {
+    .back a:hover {
       background-color: #FB667A;
       cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      form {
+        width: 95%;
+      }
+
+      label,
+      input,
+      select {
+        font-size: 0.9em;
+      }
+
+      input[type="submit"] {
+        padding: 15px;
+        font-size: 1.2em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
     }
   </style>
   <?php
@@ -127,10 +137,10 @@
 </head>
 
 <body>
-<div class="back">
   <form action="update_c.php?ClientNumber=<?php echo $clientNumber; ?>" method="post">
-    <a href="c_list.php">Back</a>
-</div>
+    <div class="back">
+      <a href="c_list.php">Back</a>
+    </div>
 
     <label for="lastName">Last Name:</label>
     <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($clientData['lastName']); ?>" required>

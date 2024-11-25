@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Client</title>
-    <link rel="stylesheet" href="css/style.css">
     <style>
         /* General Form Layout */
         form {
@@ -120,6 +119,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -130,8 +130,6 @@
         <div class="back">
             <a href="c_list.php"><b>Back</b></a><br><br>
         </div>
-
-        <h2>Add Client</h2>
 
         <label for="lastName">Last Name: <span style="color: #B8001F">*</span></label>
         <input type="text" id="lastName" name="lastName" required>

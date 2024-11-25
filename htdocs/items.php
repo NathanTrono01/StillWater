@@ -162,8 +162,8 @@
                         <td><?php echo $result['critiqued_comments']; ?></td>
                         <td><?php echo $result['item_type']; ?></td>
                         <td align="center" width="20%" class="td">
-                            <a href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'>Edit</a>
-                            <a href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                            <a class='bx bx-edit-alt' href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'></a>
+                            <a class='bx bx-minus' href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');"></a>
                         </td>
                     </tr>
                 <?php } ?>

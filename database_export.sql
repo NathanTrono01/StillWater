@@ -28,7 +28,7 @@ CREATE TABLE `allclients` (
   `ClientAddress` varchar(255) DEFAULT NULL,
   `lastName` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ClientNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `allclients` (
 
 LOCK TABLES `allclients` WRITE;
 /*!40000 ALTER TABLE `allclients` DISABLE KEYS */;
-INSERT INTO `allclients` VALUES (3,'John','123 Apple St, Toronto','Smith'),(4,'Emma','456 Maple Ave, Vancouver','Johnson'),(6,'Sarah','321 Pine Lane, Calgary','Brown'),(7,'David','654 Cedar Blvd, Ottawa','Jones'),(8,'Lisa','987 Birch Way, Edmonton','Garcia'),(9,'James','147 Elm St, Victoria','Miller'),(10,'Jennifer','258 Spruce Ave, Halifax','Davis'),(11,'Robert','369 Willow Rd, Regina','Rodriguez'),(12,'Maria','741 Fir Lane, Winnipeg','Martinez'),(13,'William','852 Ash St, Quebec City','Anderson'),(14,'Patricia','963 Poplar Ave, Hamilton','Taylor'),(15,'Richard','159 Maple Dr, Surrey','Thomas'),(16,'Linda','753 Oak Circle, London','Moore'),(17,'Joseph','951 Pine Court, Saskatoon','Jackson'),(19,'Thomas','486 Birch Road, Kingston','Harris'),(20,'Margaret','264 Spruce Lane, Kelowna','Martin'),(21,'Charles','159 Willow Ave, Gatineau','Thompson'),(22,'Sandra','753 Elm Court, Guelph','Lee'),(23,'Cyril Jay','Suarez','Acope'),(24,'Jaymar','Pugaan','Mangiboa'),(25,'Jerick Carlo','Iligan','Almeda');
+INSERT INTO `allclients` VALUES (42,'Nathan Miguel','Prk. 3 Luinab, Iligan City','Trono'),(43,'Edsel Lyann Khim','Dalipuga','Bering'),(44,'Jaymar','Pugaan','Mangiboa'),(46,'Janblaire','Suarez','Mericuelo'),(49,'Test','Test','Test'),(50,'test2','test3','test1');
 /*!40000 ALTER TABLE `allclients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,11 +53,15 @@ CREATE TABLE `items` (
   `description` text DEFAULT NULL,
   `asking_price` bigint(20) DEFAULT NULL,
   `critiqued_comments` text DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
   `condition` text DEFAULT NULL,
   `item_type` text DEFAULT NULL,
   `is_sold` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`item_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `ClientNumber` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`item_num`),
+  KEY `allclients_items` (`ClientNumber`),
+  CONSTRAINT `allclients_items` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +70,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (1,'Emerald',99999,'Crafted by Minecraft Villagers','Excellent','Jewel',1),(2,'Rusty Can',10,'Test','Bad','Material',1),(10,'test3',121,'test3','Excellent','test',1),(11,'Antique Victorian Chair',2500,'Excellent craftsmanship, original upholstery','Good','Furniture',1),(12,'1920s Diamond Ring',15000,'Art deco style, 2 carat diamond','Excellent','Jewelry',0),(13,'Vintage Rolex Watch',8500,'Original box and papers included','Excellent','Watches',0),(14,'Persian Carpet',4000,'Hand-woven, natural dyes','Good','Textiles',0),(15,'Bronze Sculpture',3500,'Signed by artist, limited edition','Excellent','Art',0),(16,'Ming Dynasty Vase',12000,'Authenticated, minor restoration','Fair','Pottery',0),(17,'First Edition Book',5000,'Signed by author, rare find','Good','Literature',0),(18,'Art Deco Lamp',1800,'Original glass shade, rewired','Good','Lighting',0),(19,'Vintage Camera',900,'Leica M3, working condition','Fair','Photography',0),(20,'Gold Pocket Watch',3200,'Swiss made, 18k gold case','Good','Watches',0),(21,'Tiffany Stained Glass',7500,'Original piece, documented','Excellent','Art Glass',0),(22,'Victorian Writing Desk',4500,'Mahogany, original hardware','Good','Furniture',0),(23,'Ancient Roman Coin',2800,'Authenticated, rare mint','Fair','Numismatics',0),(24,'Vintage Wine',6000,'Bordeaux 1982, perfect provenance','Excellent','Wine',0),(25,'Oil Painting',9500,'19th century landscape','Good','Art',0),(26,'Crystal Chandelier',5500,'French, 19th century','Good','Lighting',0),(27,'Samurai Sword',11000,'Edo period, authenticated','Good','Weapons',0),(28,'Emerald Necklace',18000,'Colombian emeralds, 18k gold','Excellent','Jewelry',0),(29,'Vintage Motorcycle',15000,'1960 Harley Davidson','Fair','Vehicles',0),(30,'Chinese Jade Carving',3800,'Qing Dynasty, certified','Good','Art',0),(31,'Emerald Block',123,'Crafted by Minecraft Villagers','Fair','Jewel',1),(32,'Nokia',10,'Functional Vintage Nokia','Good','Gadget',1),(33,'Taro Que Chips',15,'Cheese Flavor','Good','Food',1),(34,'25 year old Rocking Chair',10000,'Slighly washout color','Good','Furniture',1);
+INSERT INTO `items` VALUES (61,'Testing Item 1',0,'Testing Sales, and Inserting for Commission',NULL,'Excellent','Others',1,42),(62,'Testing Item 2',0,'Testing Existing Clients Commissions',NULL,'Excellent','Others',0,43),(63,'Testing Item 3',1,'Testing Sales, and Item Insertion',NULL,'Bad','Others',0,NULL),(69,'test',1,'test',NULL,'Bad','Others',1,44),(70,'daw',1,'dwa',NULL,'Bad','Others',0,NULL),(71,'test4',1,'test5',NULL,'Bad','Others',0,50),(72,'test6',1,'test7',NULL,'Bad','Others',1,50);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,16 +84,15 @@ DROP TABLE IF EXISTS `purchases`;
 CREATE TABLE `purchases` (
   `purchase_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `condition_at_purchase` text DEFAULT NULL,
-  `p_cost` bigint(20) DEFAULT NULL,
   `p_date` datetime DEFAULT NULL,
   `item_num` int(11) DEFAULT NULL,
   `ClientNumber` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`purchase_id`),
   KEY `Items_Purchases` (`item_num`),
   KEY `AllClients_Purchases` (`ClientNumber`),
-  CONSTRAINT `purchases_ibfk_10` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`),
+  CONSTRAINT `purchases_ibfk_10` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `purchases_ibfk_14` FOREIGN KEY (`item_num`) REFERENCES `items` (`item_num`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +101,7 @@ CREATE TABLE `purchases` (
 
 LOCK TABLES `purchases` WRITE;
 /*!40000 ALTER TABLE `purchases` DISABLE KEYS */;
-INSERT INTO `purchases` VALUES (5,'Fair',123,'2024-11-05 18:59:06',31,23),(6,'Good',50,'2024-11-06 10:44:45',33,24),(7,'Good',10000,'2024-11-08 08:51:22',34,25);
+INSERT INTO `purchases` VALUES (22,'Excellent','2024-11-23 11:33:51',61,42),(23,'Excellent','2024-11-23 11:40:58',62,43),(24,'Bad','2024-11-23 12:31:40',NULL,44),(26,'Bad','2024-11-23 13:21:02',69,44),(27,'Bad','2024-11-25 16:31:37',71,50),(28,'Bad','2024-11-25 08:32:17',72,50);
 /*!40000 ALTER TABLE `purchases` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,9 +123,9 @@ CREATE TABLE `sales` (
   PRIMARY KEY (`saleID`),
   KEY `AllClients_Sales` (`ClientNumber`),
   KEY `Items_Sales` (`item_num`),
-  CONSTRAINT `sales_ibfk_11` FOREIGN KEY (`item_num`) REFERENCES `items` (`item_num`),
+  CONSTRAINT `sales_ibfk_11` FOREIGN KEY (`item_num`) REFERENCES `items` (`item_num`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `sales_ibfk_5` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +134,7 @@ CREATE TABLE `sales` (
 
 LOCK TABLES `sales` WRITE;
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-INSERT INTO `sales` VALUES (3,150,125,15,'2024-11-05 19:01:50',31,3),(8,NULL,15000,1800,'2024-11-08 08:55:45',34,25),(9,123,123,15,'2024-11-13 09:44:09',11,23);
+INSERT INTO `sales` VALUES (19,NULL,1,0,'2024-11-23 11:35:58',61,NULL),(20,NULL,10,1,'2024-11-25 16:33:00',69,NULL),(21,NULL,10,1,'2024-11-25 16:33:32',72,NULL);
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -144,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-13  1:48:16
+-- Dump completed on 2024-11-25  8:57:38

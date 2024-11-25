@@ -5,97 +5,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clients List</title>
+    <link rel="stylesheet" href="css/style.css">
+    <?php
+    include("database.php");
+    include("nav.php");
+
+    $sql = "SELECT * FROM allclients ORDER BY lastName ASC";
+    $query = mysqli_query($conn, $sql);
+
+    if (!$query) {
+        echo "Error: " . mysqli_error($conn);
+    }
+    ?>
+    <style>
+        .td a[href*="update_c.php"] {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #6C4E31;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .td a[href*="update_c.php"]:hover {
+            background-color: #72BF78;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .td a[href*="c_list.php?action=delete"] {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 5px;
+            background-color: #6C4E31;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .td a[href*="c_list.php?action=delete"]:hover {
+            background-color: #FB667A;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .td a:hover {
+            background-color: #FB667A;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border-left: 1px solid #E8B86D;
+            border-right: 1px solid #E8B86D;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #6C4E31;
+            color: white;
+        }
+
+        .th {
+            text-align: left;
+            font-size: 1.3em;
+        }
+
+        .container {
+            width: 100%;
+        }
+    </style>
 </head>
-<link rel="stylesheet" href="css/style.css">
-<?php
-include("database.php");
-include("nav.php");
-
-$sql = "SELECT * FROM allclients ORDER BY lastName ASC";
-$query = mysqli_query($conn, $sql);
-
-if (!$query) {
-    echo "Error: " . mysqli_error($conn);
-}
-?>
-<style> 
-    .td a[href*="update_c.php"] {
-        display: inline-block;
-        padding: 5px 10px;
-        background-color: #6C4E31;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .td a[href*="update_c.php"]:hover {
-        background-color: #72BF78;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .td a[href*="c_list.php?action=delete"] {
-        display: inline-block;
-        padding: 5px 10px;
-        margin: 0 5px;
-        background-color: #6C4E31;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .td a[href*="c_list.php?action=delete"]:hover {
-        background-color: #FB667A;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .td a:hover {
-        background-color: #FB667A;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    td {
-        border-left: 1px solid #E8B86D;
-        border-right: 1px solid #E8B86D;
-        padding: 10px;
-    }
-
-    th {
-        background-color: #6C4E31;
-        color: white;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    tr:hover {
-        background-color: #e6e6e6;
-    }
-
-    .th {
-        text-align: left;
-        font-size: 1.3em;
-    }
-
-    .container {
-        width: 100%;
-    }
-</style>
 
 <body>
     <form action="c_list.php" method="POST">

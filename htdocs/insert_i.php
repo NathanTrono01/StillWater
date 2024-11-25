@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Item</title>
-    <link rel="stylesheet" href="css/style.css">
     <style>
         form {
             display: block;
@@ -113,7 +113,9 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <?php
     include("database.php");
@@ -180,7 +182,7 @@
         $query = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($query) > 0) {
-            echo "<script>alert('Item already exists.'); window.location='items.php';</script>";
+            echo "<script>alert('Use different description, Item already exists.'); window.location='items.php';</script>";
         } else {
             $sql = "INSERT INTO items (`condition`, item_type, asking_price, description, critiqued_comments) 
                     VALUES ('$condition', '$item_type', '$asking_price', '$description', '$comments')";
@@ -193,4 +195,5 @@
     }
     ?>
 </body>
+
 </html>
