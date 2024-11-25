@@ -6,17 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clients List</title>
     <link rel="stylesheet" href="css/style.css">
-    <?php
-    include("database.php");
-    include("nav.php");
-
-    $sql = "SELECT * FROM allclients ORDER BY lastName ASC";
-    $query = mysqli_query($conn, $sql);
-
-    if (!$query) {
-        echo "Error: " . mysqli_error($conn);
-    }
-    ?>
     <style>
         .td a[href*="update_c.php"] {
             display: inline-block;
@@ -88,11 +77,22 @@
         }
     </style>
 </head>
+<?php
+include("database.php");
+include("nav.php");
+
+$sql = "SELECT * FROM allclients ORDER BY lastName ASC";
+$query = mysqli_query($conn, $sql);
+
+if (!$query) {
+    echo "Error: " . mysqli_error($conn);
+}
+?>
 
 <body>
     <form action="c_list.php" method="POST">
         <div class="table-wrapper">
-            <table class="container" border="0">
+            <table class="container">
                 <thead>
                     <tr>
                         <th class="th" colspan="2"><a href="insert_c.php">Add Client</a></th>
