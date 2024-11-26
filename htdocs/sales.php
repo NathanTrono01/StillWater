@@ -7,40 +7,9 @@
     <title>Sales Record</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .td a[href*="sales.php?action=delete"] {
-            display: inline-block;
-            padding: 5px 10px;
-            margin: 0 10px;
-            background-color: #6C4E31;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a[href*="sales.php?action=delete"]:hover {
-            background-color: #FB667A;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            /* Ensures that borders between cells are collapsed into one */
-        }
-
-        td {
-            border-left: 1px solid #E8B86D;
-            /* Adds vertical lines on the left side */
-            border-right: 1px solid #E8B86D;
-            /* Adds vertical lines on the right side */
-            padding: 10px;
-        }
 
         .container td:first-child {
-            color: #982B1C;
+            color: #008170;
         }
     </style>
 </head>
@@ -119,8 +88,8 @@
                         <td><span style="color: green;">₱</span> <?php echo $sellingPrice; ?></td>
                         <td><span style="color: green;">₱</span> <?php echo $commission; ?></td>
                         <td><span style="color: green;">₱</span> <?php echo $formatSalesTax; ?></td> <!-- Display calculated sales tax -->
-                        <td align="center" width="20%" class="td">
-                            <a href='sales.php?action=delete&saleID=<?php echo $result["saleID"]; ?>' onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                        <td align="center" class="action-buttons">
+                            <a class="bx bxs-trash deletebtn" href='sales.php?action=delete&saleID=<?php echo $result["saleID"]; ?>' onclick="return confirm('Are you sure you want to delete this record?');"></a>
                         </td>
                     </tr>
                 <?php } ?>

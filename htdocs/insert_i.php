@@ -10,7 +10,7 @@
             display: block;
             width: 600px;
             padding: 30px;
-            background-color: #603F26;
+            background-color: #3f3c36;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             margin: 40px auto;
@@ -27,7 +27,7 @@
 
         label {
             font-size: 1.1em;
-            color: #FFDBB5;
+            color: #FFF;
             font-weight: bold;
             margin-bottom: 8px;
             display: block;
@@ -39,7 +39,7 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
-            border: 2px solid #CD5C08;
+            border: 2px solid #232223;
             border-radius: 8px;
             font-size: 16px;
             background-color: #FFEAC5;
@@ -52,7 +52,7 @@
         input[type="text"]:focus,
         input[type="number"]:focus,
         select:focus {
-            border-color: #FB667A;
+            border-color: rgb(211, 0, 0);
             outline: none;
         }
 
@@ -77,7 +77,7 @@
             text-align: left;
             display: inline-block;
             padding: 10px 20px;
-            background-color: #6C4E31;
+            background-color: #232223;
             color: white;
             text-decoration: none;
             border-radius: 10px;
@@ -88,7 +88,8 @@
         }
 
         .back a:hover {
-            background-color: #FB667A;
+            background-color: #d2c9ac;
+            color: #000;
             cursor: pointer;
         }
 

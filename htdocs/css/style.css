@@ -1,13 +1,44 @@
 /* Import Boxicons */
 @import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 /* General Styles */
+.action-buttons {
+    width: 150px;
+    /* Adjust the width as needed */
+    text-align: center;
+}
+
+.deletebtn,
+.editbtn {
+    display: inline-block;
+    font-size: 20px;
+    padding: 5px 5px;
+    background-color: #3f3c36;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.deletebtn:hover {
+    color: rgb(211, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.editbtn:hover {
+    color: limegreen;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 300;
     line-height: 1.42em;
     color: #202020;
-    background-color: #FFEAC5;
+    background-color: #D2C9AC;
     margin: 0;
     /* Reset body margin */
 }
@@ -17,7 +48,7 @@ h1 {
     font-weight: 300;
     line-height: 1em;
     text-align: center;
-    color: #4DC3FA;
+    color: #232223;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin: 20px 0;
 }
@@ -26,13 +57,13 @@ h2 {
     font-size: 0.9em;
     font-weight: 300;
     text-align: center;
-    color: #FB667A;
+    color: rgb(211, 0, 0);
 }
 
 h2 a {
     font-weight: 700;
     text-transform: uppercase;
-    color: #FB667A;
+    color: rgb(211, 0, 0);
     text-decoration: none;
 }
 
@@ -81,18 +112,20 @@ h2 a {
 
 .container th {
     padding: 8px;
-    background-color: #603F26;
-    border-bottom: 2px solid #FFDBB5;
-    color: #FFDBB5;
+    background-color: #3f3c36;
+    border-bottom: 2px solid #232223;
+    color: #fff;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 1.1rem;
+    font-size: 1rem;
+
 }
 
 .container td {
-    padding: 8px;
+    padding: 10px;
     font-size: 1rem;
     box-shadow: 0 2px 2px -2px #0E1119;
+    border-left: 0.01px solid #3f3c36;
 }
 
 .container tr:nth-child(odd) {
@@ -104,7 +137,7 @@ h2 a {
 }
 
 .container tr:hover {
-    background-color: #E8B86D;
+    background-color: #D2C9AC;
     box-shadow: 0 6px 6px -6px #0E1119;
     transition: all 0.3s ease;
 }
@@ -113,11 +146,23 @@ h2 a {
     display: inline-block;
     padding: 8px 12px;
     margin: 0 10px;
-    background-color: #6C4E31;
-    color: white;
+    background-color: #232223;
+    color: #FFF;
     text-decoration: none;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.th a:hover {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 10px;
+    background-color: #d2c9ac;
+    color: #000;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px #d2c9ac81;
     transition: all 0.3s ease;
 }
 

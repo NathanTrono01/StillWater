@@ -7,61 +7,7 @@
     <title>Clients List</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .td a[href*="update_c.php"] {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #6C4E31;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .td a[href*="update_c.php"]:hover {
-            background-color: #72BF78;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a[href*="c_list.php?action=delete"] {
-            display: inline-block;
-            padding: 5px 10px;
-            margin: 0 5px;
-            background-color: #6C4E31;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a[href*="c_list.php?action=delete"]:hover {
-            background-color: #FB667A;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a:hover {
-            background-color: #FB667A;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        td {
-            border-left: 1px solid #E8B86D;
-            border-right: 1px solid #E8B86D;
-            padding: 10px;
-        }
-
+        
         th {
             background-color: #6C4E31;
             color: white;
@@ -101,18 +47,18 @@ if (!$query) {
                     <tr align="left">
                         <th width="40%">Full Name</th>
                         <th width="40%">Address</th>
-                        <th align="center">Actions</th>
+                        <th align="center" class="action-buttons">Actions</th>
                     </tr>
                 <tbody>
                     <?php
                     while ($result = mysqli_fetch_assoc($query)) { ?>
                         <tr>
-                            <td align="left"><span style="color: #CD5C08;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
+                            <td align="left"><span style="color: #008170;"><?php echo htmlspecialchars($result['lastName']); ?></span>,
                                 <?php echo htmlspecialchars($result['givenName']); ?></td>
                             <td align="left"><?php echo $result['ClientAddress']; ?></td>
-                            <td align="center" class="td">
-                                <a href='update_c.php?action=edit&ClientNumber=<?php echo $result["ClientNumber"]; ?>'>Edit</a>
-                                <a href='c_list.php?action=delete&ClientNumber=<?php echo $result["ClientNumber"]; ?>' onclick="return confirm('Are you sure you want to delete this client?');">Delete</a>
+                            <td align="center" class="action-buttons">
+                                <a class="bx bxs-edit editbtn" href='update_c.php?action=edit&ClientNumber=<?php echo $result["ClientNumber"]; ?>'></a>
+                                <a class="bx bxs-trash deletebtn" href='c_list.php?action=delete&ClientNumber=<?php echo $result["ClientNumber"]; ?>' onclick="return confirm('Are you sure you want to delete this client?');"></a>
                             </td>
                         </tr>
                     <?php } ?>

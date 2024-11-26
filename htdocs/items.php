@@ -9,7 +9,7 @@
     <style>
         .td a[href*="update_i.php"] {
             display: inline-block;
-            padding: 5px 10px;
+            padding: 10px 10px;
             background-color: #6C4E31;
             color: white;
             text-decoration: none;
@@ -22,38 +22,6 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a[href*="items.php?action=delete"] {
-            display: inline-block;
-            padding: 5px 10px;
-            margin: 0 5px;
-            background-color: #6C4E31;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a[href*="items.php?action=delete"]:hover {
-            background-color: #FB667A;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            /* Ensures that borders between cells are collapsed into one */
-        }
-
-        td {
-            border-left: 1px solid #E8B86D;
-            /* Adds vertical lines on the left side */
-            border-right: 1px solid #E8B86D;
-            /* Adds vertical lines on the right side */
-            padding: 10px;
         }
 
         .condition-excellent {
@@ -161,9 +129,9 @@
                         <td><span style="color: green;">₱</span> <?php echo $formatPrice; ?></td>
                         <td><?php echo $result['critiqued_comments']; ?></td>
                         <td><?php echo $result['item_type']; ?></td>
-                        <td align="center" width="20%" class="td">
-                            <a class='bx bx-edit-alt' href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'></a>
-                            <a class='bx bx-minus' href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');"></a>
+                        <td align="center" class="action-buttons">
+                            <a class='bx bxs-edit editbtn' href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'></a>
+                            <a class='bx bxs-trash deletebtn' href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');"></a>
                         </td>
                     </tr>
                 <?php } ?>

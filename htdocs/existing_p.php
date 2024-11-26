@@ -16,8 +16,9 @@
         form {
             display: block;
             width: 600px;
+            /* Fixed width for larger screens */
             padding: 20px;
-            background-color: #603F26;
+            background-color: #3f3c36;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             margin: 40px auto;
@@ -28,14 +29,14 @@
             font-size: 2em;
             font-weight: bold;
             text-align: center;
-            color: #FB667A;
+            color: #FFF;
             margin: 0;
         }
 
         /* Form Label Styling */
         label {
             font-size: 1.1em;
-            color: #FFDBB5;
+            color: #FFF;
             font-weight: bold;
             margin-bottom: 8px;
             display: block;
@@ -48,9 +49,10 @@
         input[type="datetime-local"],
         select {
             width: 100%;
+            /* Full width for all inputs */
             padding: 12px;
             margin-bottom: 20px;
-            border: 2px solid #CD5C08;
+            border: 2px solid #232223;
             border-radius: 8px;
             font-size: 16px;
             background-color: #FFEAC5;
@@ -64,7 +66,7 @@
         input[type="number"]:focus,
         input[type="datetime-local"]:focus,
         select:focus {
-            border-color: #FB667A;
+            border-color: rgb(211, 0, 0);
             outline: none;
         }
 
@@ -80,6 +82,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             width: 100%;
+            /* Full width for the submit button */
         }
 
         input[type="submit"]:hover {
@@ -92,7 +95,7 @@
             text-align: left;
             display: inline-block;
             padding: 10px 20px;
-            background-color: #6C4E31;
+            background-color: #232223;
             color: white;
             text-decoration: none;
             border-radius: 10px;
@@ -103,7 +106,9 @@
         }
 
         .back a:hover {
-            background-color: #FB667A;
+            background-color: #d2c9ac;
+            box-shadow: 0 4px 8px #d2c9ac81;
+            color: #000;
             cursor: pointer;
         }
 
@@ -111,12 +116,14 @@
         @media (max-width: 600px) {
             form {
                 width: 95%;
+                /* Adjust form width for small screens */
             }
 
             label,
             input,
             select {
                 font-size: 1em;
+                /* Adjust font size for small screens */
             }
 
             input[type="submit"] {

@@ -7,40 +7,6 @@
     <title>Commission Record</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .td a[href*="purchases.php?action=delete"] {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #6C4E31;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a[href*="purchases.php?action=delete"]:hover {
-            background-color: #FB667A;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .td a:hover {
-            background-color: #FB667A;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            /* Ensures that borders between cells are collapsed into one */
-        }
-
-        td {
-            border-left: 1px solid #E8B86D;
-            /* Adds vertical lines on the left side */
-            border-right: 1px solid #E8B86D;
-            /* Adds vertical lines on the right side */
-            padding: 10px;
-        }
 
         .condition-excellent {
             color: gold;
@@ -75,7 +41,7 @@
         }
 
         .container td:first-child {
-            color: #982B1C;
+            color: #008170;
         }
     </style>
 </head>
@@ -163,8 +129,8 @@
                             }
                             ?>
                         </td>
-                        <td align="center" class="td">
-                            <a href="purchases.php?action=delete&id=<?php echo $result['purchase_id']; ?>">Delete</a>
+                        <td align="center" class="action-buttons">
+                            <a class="bx bxs-trash deletebtn" href="purchases.php?action=delete&id=<?php echo $result['purchase_id']; ?>"></a>
                         </td>
                     </tr>
                 <?php

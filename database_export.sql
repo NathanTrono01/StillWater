@@ -70,7 +70,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (61,'Testing Item 1',0,'Testing Sales, and Inserting for Commission',NULL,'Excellent','Others',1,42),(62,'Testing Item 2',0,'Testing Existing Clients Commissions',NULL,'Excellent','Others',0,43),(63,'Testing Item 3',1,'Testing Sales, and Item Insertion',NULL,'Bad','Others',0,NULL),(69,'test',1,'test',NULL,'Bad','Others',1,44),(70,'daw',1,'dwa',NULL,'Bad','Others',0,NULL),(71,'test4',1,'test5',NULL,'Bad','Others',0,50),(72,'test6',1,'test7',NULL,'Bad','Others',1,50);
+INSERT INTO `items` VALUES (61,'Testing Item 1',0,'Testing Sales, and Inserting for Commission',NULL,'Excellent','Others',1,42),(62,'Testing Item 2',0,'Testing Existing Clients Commissions',NULL,'Excellent','Others',0,43),(63,'Testing Item 3',1,'Testing Sales, and Item Insertion',NULL,'Bad','Others',0,NULL),(69,'test',1,'test',NULL,'Bad','Others',1,44),(70,'daw',1,'dwa',NULL,'Bad','Others',0,NULL),(71,'test4',1,'test5','67443cf3212d9-462583345_531195953036910_3168969401962619528_n.png','Excellent','Others',0,50),(72,'test6',1,'test7',NULL,'Bad','Others',1,50);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-25  8:57:38
+-- Dump completed on 2024-11-25 10:17:06
