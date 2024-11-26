@@ -11,7 +11,7 @@
             display: block;
             width: 600px;
             padding: 30px;
-            background-color: #603F26;
+            background-color: #3f3c36;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             margin: 40px auto;
@@ -21,12 +21,12 @@
             font-size: 2em;
             font-weight: bold;
             text-align: center;
-            color: #FB667A;
+            color: #FFF;
         }
 
         label {
             font-size: 1.1em;
-            color: #FFDBB5;
+            color: #FFF;
             font-weight: bold;
             margin-bottom: 8px;
             display: block;
@@ -37,7 +37,7 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
-            border: 2px solid #CD5C08;
+            border: 2px solid #232223;
             border-radius: 8px;
             font-size: 16px;
             background-color: #FFEAC5;
@@ -66,7 +66,7 @@
             text-align: left;
             display: inline-block;
             padding: 10px 20px;
-            background-color: #6C4E31;
+            background-color: #232223;
             color: white;
             text-decoration: none;
             border-radius: 10px;
@@ -74,18 +74,21 @@
         }
 
         .back a:hover {
-            background-color: #FB667A;
+            background-color: #d2c9ac;
+            box-shadow: 0 4px 8px #d2c9ac81;
+            transition: background-color 0.3s ease;
+            color: #000;
             cursor: pointer;
         }
 
         .image-preview {
-            text-align: center;
+            text-align: block;
             margin-bottom: 20px;
         }
 
         .image-preview img {
             height: 100px;
-            border: 3px dashed #FFEAC5;
+            border: 2px dashed #FFEAC5;
         }
     </style>
 </head>
@@ -176,11 +179,35 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
     $comments = $_POST['critiqued_comments'];
 
+    $uploadDir = 'uploads/';
     $imagePath = $itemData['image_path']; // Default to the current image
-    if (!empty($_FILES['itemImage']['name'])) {
-        $uploadDir = 'uploads/';
-        $imagePath = uniqid() . '-' . $_FILES['itemImage']['name'];
-        move_uploaded_file($_FILES['itemImage']['tmp_name'], $uploadDir . $imagePath);
+
+    // Check if form was submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['itemImage'])) {
+        $file = $_FILES['itemImage'];
+        $fileName = basename($file['name']);
+        $fileSize = $file['size'];
+        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        // Define allowed file types and size limit (e.g., 2MB for images)
+        $allowedTypes = ['jpg', 'jpeg', 'png'];
+        $maxSize = 2 * 1024 * 1024; // 2 MB
+
+        // Validate file type and size
+        if (in_array($fileExt, $allowedTypes) && $fileSize <= $maxSize) {
+            // Create unique file name and upload file
+            $newFileName = uniqid() . '.' . $fileExt;
+            $uploadFile = $uploadDir . $newFileName;
+
+            if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+                $imagePath = $newFileName; // Update image path with the new file name
+                echo "File uploaded successfully: $newFileName";
+            } else {
+                echo "Error uploading file.";
+            }
+        } else {
+            echo "Invalid file type or size exceeded.";
+        }
     }
 
     $sql = "UPDATE items SET 

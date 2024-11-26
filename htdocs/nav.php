@@ -84,9 +84,11 @@
             position: absolute;
             background-color: #3f3c36;
             min-width: 200px;
-            z-index: 1;
+            z-index: 5;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            right: 0;
+            /* Align dropdown to the right */
         }
 
         .dropdown:hover .dropdown-content {
@@ -143,6 +145,7 @@
                 <div class="dropdown-content">
                     <a href="insert_i.php">New Item</a>
                     <hr>
+                    <a href="item_gallery.php">Item Gallery</a>
                     <a href="items.php">Available Items</a>
                     <a href="sold_items.php">Sold Items</a>
                 </div>

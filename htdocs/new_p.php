@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Purchase Record</title>
+    <title>Add Commission</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* Apply box-sizing globally to ensure padding and borders are included in width/height */
@@ -108,6 +108,7 @@
         .back a:hover {
             background-color: #d2c9ac;
             box-shadow: 0 4px 8px #d2c9ac81;
+            transition: background-color 0.3s ease;
             color: #000;
             cursor: pointer;
         }
@@ -246,7 +247,7 @@
         <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" name="critiqued_comments" required>
 
-        <input type="submit" name="submit" value="Submit Purchase Record">
+        <input type="submit" name="submit" value="Submit">
     </form>
 </body>
 

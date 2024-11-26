@@ -33,8 +33,7 @@
             display: block;
         }
 
-        input[type="text"],
-        input[type="number"],
+        input,
         select {
             width: 100%;
             padding: 12px;
@@ -49,8 +48,7 @@
             box-sizing: border-box;
         }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
+        input:focus,
         select:focus {
             border-color: rgb(211, 0, 0);
             outline: none;
@@ -89,6 +87,8 @@
 
         .back a:hover {
             background-color: #d2c9ac;
+            box-shadow: 0 4px 8px #d2c9ac81;
+            transition: background-color 0.3s ease;
             color: #000;
             cursor: pointer;
         }
@@ -113,6 +113,16 @@
                 font-size: 1.5em;
             }
         }
+
+        .image-preview {
+            text-align: block;
+            margin-bottom: 20px;
+        }
+
+        .image-preview img {
+            height: 100px;
+            border: 2px dashed #FFEAC5;
+        }
     </style>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -122,7 +132,7 @@
     include("database.php");
     include("nav.php");
     ?>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="back">
             <a href="items.php"><b>Back</b></a>
         </div>
@@ -163,9 +173,30 @@
         <label for="critiqued_comments">Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" id="critiqued_comments" name="critiqued_comments" required>
 
+        <label for="itemImage">Upload Image:</label>
+        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png">
+
+        <div class="image-preview">
+            <img id="imagePreview" src="" alt="Image Preview">
+        </div>
+
         <input type="submit" name="submit" value="Submit">
     </form>
 
+    <script>
+        document.getElementById('itemImage').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
     <?php
     if (isset($_POST['submit'])) {
         $condition = trim($_POST['condition']);
@@ -174,9 +205,33 @@
         $description = trim($_POST['description']);
         $comments = trim($_POST['critiqued_comments']);
 
-        if ($asking_price <= 0) {
-            echo "<script>alert('Please enter a valid asking price.'); window.location='add_item.php';</script>";
-            exit;
+        $imagePath = '';
+        if (!empty($_FILES['itemImage']['name'])) {
+            $uploadDir = 'uploads/';
+            $file = $_FILES['itemImage'];
+            $fileName = basename($file['name']);
+            $fileSize = $file['size'];
+            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+
+            // Define allowed file types and size limit (e.g., 2MB for images)
+            $allowedTypes = ['jpg', 'jpeg', 'png'];
+            $maxSize = 2 * 1024 * 1024; // 2 MB
+
+            // Validate file type and size
+            if (in_array($fileExt, $allowedTypes) && $fileSize <= $maxSize) {
+                // Create unique file name and upload file
+                $newFileName = uniqid() . '.' . $fileExt;
+                $uploadFile = $uploadDir . $newFileName;
+
+                if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+                    $imagePath = $newFileName; // Update image path with the new file name
+                    echo "File uploaded successfully: $newFileName";
+                } else {
+                    echo "Error uploading file.";
+                }
+            } else {
+                echo "Invalid file type or size exceeded.";
+            }
         }
 
         $sql = "SELECT * FROM items WHERE description = '$description'";
@@ -185,8 +240,8 @@
         if (mysqli_num_rows($query) > 0) {
             echo "<script>alert('Use different description, Item already exists.'); window.location='items.php';</script>";
         } else {
-            $sql = "INSERT INTO items (`condition`, item_type, asking_price, description, critiqued_comments) 
-                    VALUES ('$condition', '$item_type', '$asking_price', '$description', '$comments')";
+            $sql = "INSERT INTO items (`condition`, item_type, asking_price, `description`, critiqued_comments, image_path) 
+                VALUES ('$condition', '$item_type', '$asking_price', '$description', '$comments', '$imagePath')";
             if (mysqli_query($conn, $sql)) {
                 echo "<script>alert('Item Added Successfully'); window.location='items.php';</script>";
             } else {
@@ -195,6 +250,7 @@
         }
     }
     ?>
+
 </body>
 
 </html>

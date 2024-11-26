@@ -50,7 +50,7 @@
                 </tr>
                 <tr align="left">
                     <th width="200px">Date Sold</th>
-                    <th width="175px">Item Owner</th>
+                    <th width="175px">Commissioner</th>
                     <th width="175px">Item Description</th>
                     <th>Selling Price</th>
                     <th>Commission Paid</th>

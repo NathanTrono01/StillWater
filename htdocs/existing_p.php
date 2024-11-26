@@ -4,19 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Purchase Record</title>
+    <title>New Commission</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Apply box-sizing globally to ensure padding and borders are included in width/height */
         * {
             box-sizing: border-box;
         }
 
-        /* General Form Layout */
         form {
             display: block;
             width: 600px;
-            /* Fixed width for larger screens */
             padding: 20px;
             background-color: #3f3c36;
             border-radius: 10px;
@@ -24,7 +21,6 @@
             margin: 40px auto;
         }
 
-        /* Form Heading */
         h2 {
             font-size: 2em;
             font-weight: bold;
@@ -33,7 +29,6 @@
             margin: 0;
         }
 
-        /* Form Label Styling */
         label {
             font-size: 1.1em;
             color: #FFF;
@@ -42,14 +37,12 @@
             display: block;
         }
 
-        /* Input Fields */
         input[type="text"],
         input[type="number"],
         input[type="date"],
         input[type="datetime-local"],
         select {
             width: 100%;
-            /* Full width for all inputs */
             padding: 12px;
             margin-bottom: 20px;
             border: 2px solid #232223;
@@ -61,7 +54,6 @@
             transition: border-color 0.3s ease;
         }
 
-        /* Focus Effect on Input Fields */
         input[type="text"]:focus,
         input[type="number"]:focus,
         input[type="datetime-local"]:focus,
@@ -70,7 +62,6 @@
             outline: none;
         }
 
-        /* Submit Button Styling */
         input[type="submit"] {
             background-color: #982B1C;
             color: #FFF;
@@ -82,7 +73,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             width: 100%;
-            /* Full width for the submit button */
         }
 
         input[type="submit"]:hover {
@@ -90,7 +80,6 @@
             color: #FFF;
         }
 
-        /* Back Button Styling */
         .back a {
             text-align: left;
             display: inline-block;
@@ -108,22 +97,20 @@
         .back a:hover {
             background-color: #d2c9ac;
             box-shadow: 0 4px 8px #d2c9ac81;
+            transition: background-color 0.3s ease;
             color: #000;
             cursor: pointer;
         }
 
-        /* Responsive Design */
         @media (max-width: 600px) {
             form {
                 width: 95%;
-                /* Adjust form width for small screens */
             }
 
             label,
             input,
             select {
                 font-size: 1em;
-                /* Adjust font size for small screens */
             }
 
             input[type="submit"] {
@@ -200,7 +187,7 @@
         <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" name="critiqued_comments" required>
 
-        <input type="submit" name="submit" value="Submit Purchase Record">
+        <input type="submit" name="submit" value="Submit">
     </form>
 
     <?php

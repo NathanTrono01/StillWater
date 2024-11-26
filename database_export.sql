@@ -28,7 +28,7 @@ CREATE TABLE `allclients` (
   `ClientAddress` varchar(255) DEFAULT NULL,
   `lastName` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ClientNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `allclients` (
 
 LOCK TABLES `allclients` WRITE;
 /*!40000 ALTER TABLE `allclients` DISABLE KEYS */;
-INSERT INTO `allclients` VALUES (42,'Nathan Miguel','Prk. 3 Luinab, Iligan City','Trono'),(43,'Edsel Lyann Khim','Dalipuga','Bering'),(44,'Jaymar','Pugaan','Mangiboa'),(46,'Janblaire','Suarez','Mericuelo'),(49,'Test','Test','Test'),(50,'test2','test3','test1');
+INSERT INTO `allclients` VALUES (42,'Nathan Miguel','Prk. 3 Luinab, Iligan City','Trono'),(43,'Edsel Lyann Khim','Dalipuga','Bering'),(44,'Jaymar','Pugaan','Mangiboa'),(46,'Janblaire','Suarez','Mericuelo'),(49,'Test','Test','Test'),(50,'test2','test3','test1'),(51,'John','123 Main St','Doe'),(52,'Jane','456 Oak St','Smith'),(53,'Alice','789 Pine St','Johnson'),(54,'Bob','101 Maple St','Brown'),(55,'Charlie','202 Birch St','Davis'),(56,'David','303 Cedar St','Wilson'),(57,'Eve','404 Elm St','Taylor'),(58,'Frank','505 Spruce St','Anderson'),(59,'Grace','606 Fir St','Thomas'),(60,'Hank','707 Willow St','Moore'),(61,'Ivy','808 Ash St','Martin'),(62,'Jack','909 Poplar St','Lee'),(63,'Kathy','1010 Cypress St','White'),(64,'Leo','1111 Redwood St','Harris'),(65,'Mia','1212 Sequoia St','Clark'),(66,'Nina','1313 Magnolia St','Lewis'),(67,'Oscar','1414 Palm St','Walker'),(68,'Paul','1515 Olive St','Hall'),(69,'Quinn','1616 Cedar St','Allen'),(70,'Rose','1717 Pine St','Young'),(71,'Sam','1818 Oak St','King'),(72,'Tina','1919 Maple St','Scott'),(73,'Uma','2020 Birch St','Green'),(74,'Vince','2121 Cedar St','Adams'),(75,'Wendy','2222 Elm St','Baker'),(76,'Xander','2323 Spruce St','Carter'),(77,'Yara','2424 Fir St','Mitchell'),(78,'Zane','2525 Willow St','Perez'),(79,'Amy','2626 Ash St','Roberts'),(80,'Brian','2727 Poplar St','Turner');
 /*!40000 ALTER TABLE `allclients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +70,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (61,'Testing Item 1',0,'Testing Sales, and Inserting for Commission',NULL,'Excellent','Others',1,42),(62,'Testing Item 2',0,'Testing Existing Clients Commissions',NULL,'Excellent','Others',0,43),(63,'Testing Item 3',1,'Testing Sales, and Item Insertion',NULL,'Bad','Others',0,NULL),(69,'test',1,'test',NULL,'Bad','Others',1,44),(70,'daw',1,'dwa',NULL,'Bad','Others',0,NULL),(71,'test4',1,'test5','67443cf3212d9-462583345_531195953036910_3168969401962619528_n.png','Excellent','Others',0,50),(72,'test6',1,'test7',NULL,'Bad','Others',1,50);
+INSERT INTO `items` VALUES (61,'Testing Item 1',0,'Testing Sales, and Inserting for Commission',NULL,'Excellent','Others',1,42),(62,'Testing Item 2',0,'Testing Existing Clients Commissions','67456c77cdee7-3051b9ce49b872d9d6f6e1deee24e0f7.png','Excellent','Others',0,43),(63,'Testing Item 3',1,'Testing Sales, and Item Insertion','67456c6f552e5-3051b9ce49b872d9d6f6e1deee24e0f7.png','Bad','Others',0,NULL),(69,'test',1,'test',NULL,'Bad','Others',1,44),(71,'test4',1,'test5','67456c663b3b9-3051b9ce49b872d9d6f6e1deee24e0f7.png','Excellent','Others',0,50),(72,'test6',1,'test7',NULL,'Bad','Others',1,50);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-25 10:17:06
+-- Dump completed on 2024-11-26  6:37:54

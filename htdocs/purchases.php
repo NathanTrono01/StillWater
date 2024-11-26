@@ -82,7 +82,7 @@
                 </tr>
                 <tr align="left">
                     <th width="170px">Date Commissioned</th>
-                    <th width="150px">Commissioned By</th>
+                    <th width="150px">Commissioner</th>
                     <th width="160px">Commissioned Item</th>
                     <th width="90px">Item Condition</th>
                     <th width="90px">Asking Price</th>

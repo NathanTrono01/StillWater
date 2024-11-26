@@ -7,60 +7,54 @@
     <title>Add Client</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* General Form Layout */
         form {
             display: block;
-            width: 500px;
-            padding: 15px;
+            width: 600px;
+            padding: 30px;
             background-color: #3f3c36;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            margin: 40px auto 0;
+            margin: 40px auto;
+            box-sizing: border-box;
         }
 
-        /* Form Heading */
         h2 {
-            font-size: 1.8em;
+            font-size: 2em;
             font-weight: bold;
             text-align: center;
             color: #FB667A;
-            margin-bottom: 20px;
+            margin: 0 0 20px;
         }
 
-        /* Form Label Styling */
         label {
-            font-size: 1em;
+            font-size: 1.1em;
             color: #FFF;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            display: block;
         }
 
-        /* Input Fields */
-        input[type="text"],
-        input[type="number"],
-        input[type="datetime-local"],
+        input,
         select {
-            width: 95%;
-            padding: 10px;
-            margin-bottom: 15px;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
             border: 2px solid #232223;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 16px;
             background-color: #FFEAC5;
             color: black;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: border-color 0.3s ease;
+            box-sizing: border-box;
         }
 
-        /* Focus Effect on Input Fields */
-        input[type="text"]:focus,
-        input[type="number"]:focus,
+        input:focus,
         select:focus {
             border-color: rgb(211, 0, 0);
             outline: none;
         }
 
-        /* Submit Button Styling */
         input[type="submit"] {
             background-color: #982B1C;
             color: #FFF;
@@ -70,15 +64,14 @@
             border-radius: 8px;
             border: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             width: 100%;
         }
 
         input[type="submit"]:hover {
             background-color: #800000;
+            color: #FFF;
         }
 
-        /* Back Button Styling */
         .back a {
             text-align: left;
             display: inline-block;
@@ -96,11 +89,11 @@
         .back a:hover {
             background-color: #d2c9ac;
             box-shadow: 0 4px 8px #d2c9ac81;
+            transition: background-color 0.3s ease;
             color: #000;
             cursor: pointer;
         }
 
-        /* Responsive Design */
         @media (max-width: 600px) {
             form {
                 width: 95%;
@@ -109,7 +102,7 @@
             label,
             input,
             select {
-                font-size: 0.9em;
+                font-size: 1em;
             }
 
             input[type="submit"] {
@@ -120,6 +113,16 @@
             h2 {
                 font-size: 1.5em;
             }
+        }
+
+        .image-preview {
+            text-align: block;
+            margin-bottom: 20px;
+        }
+
+        .image-preview img {
+            height: 100px;
+            border: 2px dashed #FFEAC5;
         }
     </style>
 </head>
@@ -151,7 +154,6 @@
         $lastName = trim($_POST['lastName']);
         $ClientAddress = trim($_POST['ClientAddress']);
 
-        // Check if client already exists
         $sql = "SELECT * FROM allclients WHERE givenName = '$givenName' AND lastName = '$lastName'";
         $query = mysqli_query($conn, $sql);
 
@@ -161,7 +163,6 @@
                 $clientNumber = $clientData['ClientNumber'];
                 echo "<p>Client already exists with ClientNumber: <b>$clientNumber</b></p>";
             } else {
-                // Insert new client
                 $sql = "INSERT INTO allclients (givenName, lastName, ClientAddress) 
                         VALUES ('$givenName', '$lastName', '$ClientAddress')";
                 if (mysqli_query($conn, $sql)) {

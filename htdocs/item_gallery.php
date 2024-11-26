@@ -7,22 +7,71 @@
     <title>Items Gallery</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
+        .gallery-wrapper::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .gallery-wrapper::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-wrapper:hover::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .contain {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 20px);
+            margin: 10px;
+        }
+
+        .gallery-wrapper {
+            background-color: #F7EED3;
+            border: 3px solid black;
+            padding: 10px;
+            border-radius: 10px;
+            width: calc(100% - 20px);
+            height: calc(100vh - 20px);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .gallery-header {
+            position: sticky;
+            top: 0;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-bottom: 1px solid black;
+            z-index: 1;
+            color: black;
+        }
+
         .gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+            padding: 10px;
             justify-content: center;
-            margin-top: 20px;
         }
 
         .gallery-item {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
+            background-color: #FFF8E8;
+            border: 1px solid #000;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             width: 100%;
-            max-width: 300px;
+            max-width: 250px;
             text-align: center;
         }
 
@@ -39,12 +88,12 @@
         .gallery-item .details h3 {
             margin: 10px 0;
             font-size: 1.2em;
-            color: #333;
+            color: #232223;
         }
 
         .gallery-item .details p {
             margin: 5px 0;
-            color: #666;
+            color: #232223;
         }
 
         .gallery-item .details .price {
@@ -70,6 +119,30 @@
 
         .condition-bad {
             color: red;
+        }
+
+        hr {
+            border: 1px solid black;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-item {
+                max-width: 200px;
+            }
+
+            .gallery-header {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-item {
+                max-width: 150px;
+            }
+
+            .gallery-header {
+                font-size: 1em;
+            }
         }
     </style>
     <?php
@@ -100,36 +173,47 @@
 </head>
 
 <body>
-    <div class="gallery">
-        <?php while ($result = mysqli_fetch_assoc($query)) {
-            $formatPrice = number_format($result['asking_price'], 2);
-            $conditionClass = '';
-            switch (strtolower($result['condition'])) {
-                case 'excellent':
-                    $conditionClass = 'condition-excellent';
-                    break;
-                case 'good':
-                    $conditionClass = 'condition-good';
-                    break;
-                case 'fair':
-                    $conditionClass = 'condition-fair';
-                    break;
-                case 'bad':
-                    $conditionClass = 'condition-bad';
-                    break;
-            }
-        ?>
-            <div class="gallery-item">
-                <img src="<?php echo $result['image_path']; ?>" alt="Item Image">
-                <div class="details">
-                    <h3><?php echo $result['description']; ?></h3>
-                    <p>Owner: <?php echo !empty($result['givenName']) || !empty($result['lastName']) ? htmlspecialchars($result['givenName'] . ' ' . $result['lastName']) : 'Stillwater Antique'; ?></p>
-                    <p class="price">₱ <?php echo $formatPrice; ?></p>
-                    <p class="condition <?php echo $conditionClass; ?>"><?php echo $result['condition']; ?></p>
-                    <p><?php echo $result['critiqued_comments']; ?></p>
-                </div>
+    <div class="contain">
+        <div class="gallery-wrapper">
+
+            <div class="gallery-header">Available Items</div>
+            <br>
+            <div class="gallery">
+                <?php while ($result = mysqli_fetch_assoc($query)) {
+                    $formatPrice = number_format($result['asking_price'], 2);
+                    $conditionClass = '';
+                    switch (strtolower($result['condition'])) {
+                        case 'excellent':
+                            $conditionClass = 'condition-excellent';
+                            break;
+                        case 'good':
+                            $conditionClass = 'condition-good';
+                            break;
+                        case 'fair':
+                            $conditionClass = 'condition-fair';
+                            break;
+                        case 'bad':
+                            $conditionClass = 'condition-bad';
+                            break;
+                    }
+                    // Construct the full image path
+                    $imagePath = !empty($result['image_path']) ? 'uploads/' . htmlspecialchars($result['image_path']) : 'uploads/na.png';
+                ?>
+                    <div class="gallery-item">
+                        <img src="<?php echo $imagePath; ?>" alt="Item Image">
+                        <div class="details">
+                            <p><b>Commissioner:</b></p>
+                            <p><?php echo !empty($result['givenName']) || !empty($result['lastName']) ? htmlspecialchars($result['givenName'] . ' ' . $result['lastName']) : 'Stillwater Antique'; ?></p>
+                            <hr>
+                            <h3><?php echo htmlspecialchars($result['description']); ?></h3>
+                            <p class="price">₱ <?php echo $formatPrice; ?></p>
+                            <p class="condition <?php echo $conditionClass; ?>"><?php echo htmlspecialchars($result['condition']); ?></p>
+                            <p><?php echo htmlspecialchars($result['critiqued_comments']); ?></p>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
-        <?php } ?>
+        </div>
     </div>
 </body>
 
