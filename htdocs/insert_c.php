@@ -114,16 +114,6 @@
                 font-size: 1.5em;
             }
         }
-
-        .image-preview {
-            text-align: block;
-            margin-bottom: 20px;
-        }
-
-        .image-preview img {
-            height: 100px;
-            border: 2px dashed #FFEAC5;
-        }
     </style>
 </head>
 
