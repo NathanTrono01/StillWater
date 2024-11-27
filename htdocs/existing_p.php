@@ -37,10 +37,7 @@
             display: block;
         }
 
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        input[type="datetime-local"],
+        input,
         select {
             width: 100%;
             padding: 12px;
@@ -54,9 +51,7 @@
             transition: border-color 0.3s ease;
         }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        input[type="datetime-local"]:focus,
+        input:focus,
         select:focus {
             border-color: rgb(211, 0, 0);
             outline: none;
@@ -122,6 +117,17 @@
                 font-size: 1.5em;
             }
         }
+
+        .image-preview {
+            text-align: block;
+            margin-bottom: 20px;
+        }
+
+        .image-preview img {
+            height: 100px;
+            border: 2px dashed #FFEAC5;
+            display: none;
+        }
     </style>
 </head>
 
@@ -131,7 +137,7 @@
     include("database.php");
     ?>
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         <div class="back">
             <a href="insert_p.php">Back</a>
         </div>
@@ -187,8 +193,30 @@
         <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" name="critiqued_comments" required>
 
+        <label for="itemImage">Upload Image:</label>
+        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png">
+
+        <div class="image-preview">
+            <img id="imagePreview" src="" alt="Image Preview">
+        </div>
+
         <input type="submit" name="submit" value="Submit">
     </form>
+
+    <script>
+        document.getElementById('itemImage').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
     <?php
     if (isset($_POST['submit'])) {
@@ -199,13 +227,43 @@
         $asking_price = mysqli_real_escape_string($conn, $_POST['asking_price']);
         $critiqued_comments = mysqli_real_escape_string($conn, $_POST['critiqued_comments']);
 
+        $uploadDir = 'uploads/';
+
+        $newFileName = '';
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['itemImage'])) {
+            $file = $_FILES['itemImage'];
+            $fileName = basename($file['name']);
+            $fileSize = $file['size'];
+            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+
+            // Define allowed file types and size limit (e.g., 2MB for images)
+            $allowedTypes = ['jpg', 'jpeg', 'png'];
+            $maxSize = 2 * 1024 * 1024; // 2 MB
+
+            // Validate file type and size
+            if (in_array($fileExt, $allowedTypes) && $fileSize <= $maxSize) {
+                // Create unique file name and upload file
+                $newFileName = uniqid() . '.' . $fileExt;
+                $uploadFile = $uploadDir . $newFileName;
+
+                if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+                    echo "File uploaded successfully: $newFileName";
+                } else {
+                    echo "Error uploading file.";
+                }
+            } else {
+                echo "Invalid file type or size exceeded.";
+            }
+        }
+
         if (empty($clientNumber)) {
             echo "<script>alert('Please select a client.'); window.location='purchases.php';</script>";
             exit;
         }
 
-        $insertItemSql = "INSERT INTO items (`condition`, item_type, asking_price, description, critiqued_comments, ClientNumber) 
-                          VALUES ('$condition_at_purchase', '$item_type', '$asking_price', '$description', '$critiqued_comments', '$clientNumber')";
+        $insertItemSql = "INSERT INTO items (`condition`, item_type, asking_price, `description`, critiqued_comments, ClientNumber, image_path) 
+                          VALUES ('$condition_at_purchase', '$item_type', '$asking_price', '$description', '$critiqued_comments', '$clientNumber', '$newFileName')";
         if (mysqli_query($conn, $insertItemSql)) {
             $itemNumber = mysqli_insert_id($conn);
             $currentTimeStamp = date('Y-m-d H:i:s');

@@ -176,7 +176,7 @@
     <div class="contain">
         <div class="gallery-wrapper">
 
-            <div class="gallery-header">Available Items</div>
+            <div class="gallery-header">Item Gallery</div>
             <br>
             <div class="gallery">
                 <?php while ($result = mysqli_fetch_assoc($query)) {
@@ -202,7 +202,7 @@
                     <div class="gallery-item">
                         <img src="<?php echo $imagePath; ?>" alt="Item Image">
                         <div class="details">
-                            <p><b>Commissioner:</b></p>
+                            <p><b>Item Owner:</b></p>
                             <p><?php echo !empty($result['givenName']) || !empty($result['lastName']) ? htmlspecialchars($result['givenName'] . ' ' . $result['lastName']) : 'Stillwater Antique'; ?></p>
                             <hr>
                             <h3><?php echo htmlspecialchars($result['description']); ?></h3>

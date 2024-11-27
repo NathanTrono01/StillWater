@@ -180,9 +180,8 @@ if (isset($_POST['submit'])) {
     $comments = $_POST['critiqued_comments'];
 
     $uploadDir = 'uploads/';
-    $imagePath = $itemData['image_path']; // Default to the current image
+    $newFileName = '';
 
-    // Check if form was submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['itemImage'])) {
         $file = $_FILES['itemImage'];
         $fileName = basename($file['name']);
@@ -200,7 +199,6 @@ if (isset($_POST['submit'])) {
             $uploadFile = $uploadDir . $newFileName;
 
             if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
-                $imagePath = $newFileName; // Update image path with the new file name
                 echo "File uploaded successfully: $newFileName";
             } else {
                 echo "Error uploading file.";
@@ -216,7 +214,7 @@ if (isset($_POST['submit'])) {
             asking_price = '$asking_price', 
             `description` = '$description', 
             critiqued_comments = '$comments', 
-            image_path = '$imagePath' 
+            image_path = '$newFileName' 
             WHERE item_num = '$itemNum'";
 
     if (mysqli_query($conn, $sql)) {

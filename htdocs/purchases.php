@@ -82,7 +82,7 @@
                 </tr>
                 <tr align="left">
                     <th width="170px">Date Commissioned</th>
-                    <th width="150px">Commissioner</th>
+                    <th width="150px">Item Owner</th>
                     <th width="160px">Commissioned Item</th>
                     <th width="90px">Item Condition</th>
                     <th width="90px">Asking Price</th>
@@ -93,7 +93,7 @@
             <tbody>
                 <?php
                 while ($result = mysqli_fetch_assoc($query)) {
-                    $formatCost = number_format($result['asking_price']);
+                    $formatCost = number_format($result['asking_price'], 2);
 
                     $conditionClass = '';
                     switch (strtolower($result['condition_at_purchase'])) {

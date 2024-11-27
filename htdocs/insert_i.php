@@ -122,6 +122,7 @@
         .image-preview img {
             height: 100px;
             border: 2px dashed #FFEAC5;
+            display: none;
         }
     </style>
     <link rel="stylesheet" href="css/style.css">
@@ -204,27 +205,27 @@
         $asking_price = trim($_POST['asking_price']);
         $description = trim($_POST['description']);
         $comments = trim($_POST['critiqued_comments']);
-
-        $imagePath = '';
-        if (!empty($_FILES['itemImage']['name'])) {
-            $uploadDir = 'uploads/';
+    
+        $uploadDir = 'uploads/';
+        $newFileName = '';
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['itemImage'])) {
             $file = $_FILES['itemImage'];
             $fileName = basename($file['name']);
             $fileSize = $file['size'];
             $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
-
+    
             // Define allowed file types and size limit (e.g., 2MB for images)
             $allowedTypes = ['jpg', 'jpeg', 'png'];
             $maxSize = 2 * 1024 * 1024; // 2 MB
-
+    
             // Validate file type and size
             if (in_array($fileExt, $allowedTypes) && $fileSize <= $maxSize) {
                 // Create unique file name and upload file
                 $newFileName = uniqid() . '.' . $fileExt;
                 $uploadFile = $uploadDir . $newFileName;
-
+    
                 if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
-                    $imagePath = $newFileName; // Update image path with the new file name
                     echo "File uploaded successfully: $newFileName";
                 } else {
                     echo "Error uploading file.";
@@ -233,15 +234,16 @@
                 echo "Invalid file type or size exceeded.";
             }
         }
-
+    
         $sql = "SELECT * FROM items WHERE description = '$description'";
         $query = mysqli_query($conn, $sql);
-
+    
         if (mysqli_num_rows($query) > 0) {
             echo "<script>alert('Use different description, Item already exists.'); window.location='items.php';</script>";
         } else {
+            // Change $imagePath to $newFileName
             $sql = "INSERT INTO items (`condition`, item_type, asking_price, `description`, critiqued_comments, image_path) 
-                VALUES ('$condition', '$item_type', '$asking_price', '$description', '$comments', '$imagePath')";
+                VALUES ('$condition', '$item_type', '$asking_price', '$description', '$comments', '$newFileName')";
             if (mysqli_query($conn, $sql)) {
                 echo "<script>alert('Item Added Successfully'); window.location='items.php';</script>";
             } else {

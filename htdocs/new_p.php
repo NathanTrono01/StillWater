@@ -43,10 +43,7 @@
         }
 
         /* Input Fields */
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        input[type="datetime-local"],
+        input,
         select {
             width: 100%;
             /* Full width for all inputs */
@@ -62,9 +59,7 @@
         }
 
         /* Focus Effect on Input Fields */
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        input[type="datetime-local"]:focus,
+        input:focus,
         select:focus {
             border-color: rgb(211, 0, 0);
             outline: none;
@@ -136,6 +131,17 @@
                 font-size: 1.5em;
             }
         }
+
+        .image-preview {
+            text-align: block;
+            margin-bottom: 20px;
+        }
+
+        .image-preview img {
+            height: 100px;
+            border: 2px dashed #FFEAC5;
+            display: none;
+        }
     </style>
 </head>
 
@@ -150,46 +156,83 @@
         $givenName = $_POST['givenName'];
         $clientAddress = $_POST['ClientAddress'];
 
-        //Insert Client
-        $insertClientSql = "INSERT INTO allclients (lastName, givenName, ClientAddress) VALUES ('$lastName', '$givenName', '$clientAddress')";
+        // Check if the client already exists
+        $checkClientSql = "SELECT ClientNumber FROM allclients WHERE lastName = '$lastName' AND givenName = '$givenName' AND ClientAddress = '$clientAddress'";
+        $checkClientResult = mysqli_query($conn, $checkClientSql);
 
-        if (mysqli_query($conn, $insertClientSql)) {
-            $clientNumber = mysqli_insert_id($conn);
+        if (mysqli_num_rows($checkClientResult) > 0) {
+            // Client exists, retrieve their ClientNumber
+            $clientData = mysqli_fetch_assoc($checkClientResult);
+            $clientNumber = $clientData['ClientNumber'];
+        } else {
+            // Client does not exist, insert the new client
+            $insertClientSql = "INSERT INTO allclients (lastName, givenName, ClientAddress) VALUES ('$lastName', '$givenName', '$clientAddress')";
 
-            $asking_price = $_POST['asking_price'];
-            $item_type = $_POST['item_type'];
-            $description = $_POST['description'];
-            $critiqued_comments = $_POST['critiqued_comments'];
-            $condition_at_purchase = $_POST['condition_at_purchase'];
+            if (mysqli_query($conn, $insertClientSql)) {
+                $clientNumber = mysqli_insert_id($conn);
+            } else {
+                echo "<script>alert('Failed to add Client: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+                exit();
+            }
+        }
 
-            //Insert item
-            $insertItemSql = "INSERT INTO items (asking_price, item_type, description, critiqued_comments, `condition`, ClientNumber) 
-                              VALUES ('$asking_price', '$item_type', '$description', '$critiqued_comments', '$condition_at_purchase', '$clientNumber')";
+        $asking_price = $_POST['asking_price'];
+        $item_type = $_POST['item_type'];
+        $description = $_POST['description'];
+        $critiqued_comments = $_POST['critiqued_comments'];
+        $condition_at_purchase = $_POST['condition_at_purchase'];
 
-            if (mysqli_query($conn, $insertItemSql)) {
-                $itemNumber = mysqli_insert_id($conn);
+        $uploadDir = 'uploads/';
+        $newFileName = '';
 
-                $currentTimeStamp = getCurrentDateTime();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['itemImage'])) {
+            $file = $_FILES['itemImage'];
+            $fileName = basename($file['name']);
+            $fileSize = $file['size'];
+            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
 
-                // Insert purchase
-                $insertPurchaseSql = "INSERT INTO purchases (condition_at_purchase, item_num, ClientNumber, p_date) 
-                                      VALUES ('$condition_at_purchase', '$itemNumber', '$clientNumber', '$currentTimeStamp')";
+            // Define allowed file types and size limit (e.g., 2MB for images)
+            $allowedTypes = ['jpg', 'jpeg', 'png'];
+            $maxSize = 2 * 1024 * 1024; // 2 MB
 
-                if (mysqli_query($conn, $insertPurchaseSql)) {
-                    echo "<script>alert('New record has been added successfully.'); window.location='purchases.php';</script>";
-                } else {
-                    echo "<script>alert('Failed to add Purchase: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+            // Validate file type and size
+            if (in_array($fileExt, $allowedTypes) && $fileSize <= $maxSize) {
+                // Create unique file name and upload file
+                $newFileName = uniqid() . '.' . $fileExt;
+                $uploadFile = $uploadDir . $newFileName;
+
+                if (!move_uploaded_file($file['tmp_name'], $uploadFile)) {
+                    echo "Error uploading file.";
                 }
             } else {
-                echo "<script>alert('Failed to add Item: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+                echo "Invalid file type or size exceeded.";
+            }
+        }
+
+        // Insert item
+        $insertItemSql = "INSERT INTO items (asking_price, item_type, `description`, critiqued_comments, `condition`, ClientNumber, image_path) 
+                      VALUES ('$asking_price', '$item_type', '$description', '$critiqued_comments', '$condition_at_purchase', '$clientNumber', '$newFileName')";
+
+        if (mysqli_query($conn, $insertItemSql)) {
+            $itemNumber = mysqli_insert_id($conn);
+            $currentTimeStamp = getCurrentDateTime();
+
+            // Insert purchase
+            $insertPurchaseSql = "INSERT INTO purchases (condition_at_purchase, item_num, ClientNumber, p_date) 
+                              VALUES ('$condition_at_purchase', '$itemNumber', '$clientNumber', '$currentTimeStamp')";
+
+            if (mysqli_query($conn, $insertPurchaseSql)) {
+                echo "<script>alert('New record has been added successfully.'); window.location='purchases.php';</script>";
+            } else {
+                echo "<script>alert('Failed to add Purchase: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
             }
         } else {
-            echo "<script>alert('Failed to add Client: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
+            echo "<script>alert('Failed to add Item: " . mysqli_error($conn) . "'); window.location='purchases.php';</script>";
         }
     }
     ?>
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         <div class="back">
             <a href="insert_p.php">Back</a>
         </div>
@@ -247,8 +290,30 @@
         <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
         <input type="text" name="critiqued_comments" required>
 
+        <label for="itemImage">Upload Image:</label>
+        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png">
+
+        <div class="image-preview">
+            <img id="imagePreview" src="" alt="Image Preview">
+        </div>
+
         <input type="submit" name="submit" value="Submit">
     </form>
 </body>
+
+<script>
+    document.getElementById('itemImage').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
 </html>
