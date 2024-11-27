@@ -142,7 +142,7 @@
             <a href="insert_p.php">Back</a>
         </div>
         <h2>Client Info:</h2>
-        <label for="ClientNumber">Select Existing Client/s:</label>
+        <label for="ClientNumber">Item Owner:</label>
         <select id="ClientNumber" name="ClientNumber" required>
             <option value="">-- PLEASE SELECT A CLIENT --</option>
             <?php
@@ -156,6 +156,9 @@
 
         <hr>
         <h2>Item Info:</h2>
+
+        <label for="description">Description: <span style="color: #B8001F">*</span></label>
+        <input type="text" name="description" required>
 
         <label for="item_type">Item Type: <span style="color: #B8001F">*</span></label>
         <select name="item_type" id="item_type" required>
@@ -184,17 +187,14 @@
             <option value="Bad">Bad</option>
         </select>
 
-        <label for="description">Description: <span style="color: #B8001F">*</span></label>
-        <input type="text" name="description" required>
-
         <label for="asking_price">Asking Price: <span style="color: #B8001F">*</span></label>
         <input type="number" name="asking_price" required>
 
-        <label for="critiqued_comments">Critiqued Comments: <span style="color: #B8001F">*</span></label>
-        <input type="text" name="critiqued_comments" required>
+        <label for="critiqued_comments">Comments:</label>
+        <input type="text" name="critiqued_comments">
 
         <label for="itemImage">Upload Image:</label>
-        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png">
+        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png" required>
 
         <div class="image-preview">
             <img id="imagePreview" src="" alt="Image Preview">

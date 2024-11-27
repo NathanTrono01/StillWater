@@ -128,7 +128,7 @@
             <a href="sales.php" align="left"><b>Back</b></a><br><br>
         </div>
 
-        <label for="item_num">Item:</label>
+        <label for="item_num">Item: <span style="color: #B8001F">*</span></label>
         <select id="item_num" name="item_num" required onchange="fetchItemDetails()">
             <option value="" align="center">-- SELECT AN ITEM --</option>
             <?php
@@ -141,16 +141,16 @@
         </select><br>
 
         <label for="item_owner">Item Owner:</label>
-        <input type="text" id="item_owner" name="item_owner" readonly><br>
+        <input type="text" id="item_owner" name="item_owner" readonly>
 
         <label for="asking_price">Asking Price:</label>
-        <input type="number" id="asking_price" name="asking_price" readonly><br>
+        <input type="number" id="asking_price" name="asking_price" readonly>
 
-        <label for="sellingPrice">Selling Price:</label><br>
-        <input type="number" id="sellingPrice" name="sellingPrice" required oninput="calculateSalesTax()"><br>
+        <label for="sellingPrice">Selling Price: <span style="color: #B8001F">*</span></label>
+        <input type="number" id="sellingPrice" name="sellingPrice" required oninput="calculateSalesTax()">
 
-        <label for="commissionPaid">Commission Paid: (Optional)</label><br>
-        <input type="number" id="commissionPaid" name="commissionPaid"><br>
+        <label for="commissionPaid">Commission Paid: (Optional)</label>
+        <input type="number" id="commissionPaid" name="commissionPaid">
 
         <label for="salesTax">Sales Tax (12%):</label>
         <input type="number" id="salesTax" name="salesTax" readonly><br>

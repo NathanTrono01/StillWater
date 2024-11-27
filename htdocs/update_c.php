@@ -158,7 +158,7 @@ if (!$clientData) {
     $sql = "UPDATE allclients SET lastName = '$lastName', givenName = '$givenName', ClientAddress = '$ClientAddress' WHERE ClientNumber = '$clientNumber'";
 
     if (mysqli_query($conn, $sql)) {
-      echo "<script>alert('Client\'s Information updated successfully!'); window.location='c_list.php';</script>";
+      echo "<script>alert('Client has been updated successfully!'); window.location='c_list.php';</script>";
     } else {
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }

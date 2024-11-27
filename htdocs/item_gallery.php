@@ -38,8 +38,8 @@
             border: 3px solid black;
             padding: 10px;
             border-radius: 10px;
-            width: calc(100% - 20px);
-            height: calc(100vh - 20px);
+            width: calc(100% - 50px);
+            height: calc(100vh - 50px);
             overflow-y: auto;
             position: relative;
         }
@@ -49,7 +49,7 @@
             top: 0;
             padding: 10px;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: bold;
             border-bottom: 1px solid black;
             z-index: 1;
@@ -65,24 +65,29 @@
         }
 
         .gallery-item {
+            padding: 15px;
             background-color: #FFF8E8;
             border: 1px solid #000;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             width: 100%;
-            max-width: 250px;
+            max-width: 300px;
             text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
         }
 
         .gallery-item img {
             width: 100%;
             height: auto;
-            margin-top: 10px;
         }
 
         .gallery-item .details {
-            padding: 15px;
+            padding: 8px;
         }
 
         .gallery-item .details h3 {
@@ -92,17 +97,20 @@
         }
 
         .gallery-item .details p {
-            margin: 5px 0;
+            margin: 3px 0;
             color: #232223;
+            font-size: 1em;
         }
 
         .gallery-item .details .price {
             color: green;
             font-weight: bold;
+            font-size: 1.1em;
         }
 
         .gallery-item .details .condition {
             font-weight: bold;
+            font-size: 1.1em;
         }
 
         .condition-excellent {
@@ -131,7 +139,15 @@
             }
 
             .gallery-header {
-                font-size: 1.2em;
+                font-size: 1.5em;
+            }
+
+            .gallery-item .details h3 {
+                font-size: 1.1em;
+            }
+
+            .gallery-item .details p {
+                font-size: 0.9em;
             }
         }
 
@@ -141,7 +157,20 @@
             }
 
             .gallery-header {
+                font-size: 1.2em;
+            }
+
+            .gallery-item .details h3 {
                 font-size: 1em;
+            }
+
+            .gallery-item .details p {
+                font-size: 0.8em;
+            }
+
+            .gallery-item .details .price,
+            .gallery-item .details .condition {
+                font-size: 0.9em;
             }
         }
     </style>

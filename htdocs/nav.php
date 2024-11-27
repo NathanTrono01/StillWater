@@ -141,13 +141,13 @@
                 </div>
             </div>
             <div class="dropdown">
-                <a href="items.php">Inventory</a>
+                <a href="item_gallery.php">Inventory</a>
                 <div class="dropdown-content">
                     <a href="insert_i.php">New Item</a>
                     <hr>
-                    <a href="item_gallery.php">Item Gallery</a>
                     <a href="items.php">Available Items</a>
                     <a href="sold_items.php">Sold Items</a>
+                    <a href="item_gallery.php">Item Gallery</a>
                 </div>
             </div>
             <div class="dropdown">

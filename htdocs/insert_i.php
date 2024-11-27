@@ -171,11 +171,11 @@
         <label for="description">Description: <span style="color: #B8001F">*</span></label>
         <input type="text" id="description" name="description" required>
 
-        <label for="critiqued_comments">Comments: <span style="color: #B8001F">*</span></label>
-        <input type="text" id="critiqued_comments" name="critiqued_comments" required>
+        <label for="critiqued_comments">Comments:</span></label>
+        <input type="text" id="critiqued_comments" name="critiqued_comments" >
 
         <label for="itemImage">Upload Image:</label>
-        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png">
+        <input type="file" name="itemImage" id="itemImage" accept=".jpg, .jpeg, .png" required>
 
         <div class="image-preview">
             <img id="imagePreview" src="" alt="Image Preview">

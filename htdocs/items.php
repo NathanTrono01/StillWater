@@ -96,8 +96,8 @@
                     <th width="150px">Item Owner</th>
                     <th width="50px">Condition</th>
                     <th width="90px">Asking Price</th>
-                    <th width="200px">Critiqued Comments</th>
-                    <th width="45px">Item Type</th>
+                    <th width="200px">Comments</th>
+                    <th width="45px">Type</th>
                     <th align="center">Actions</th>
                 </tr>
             </thead>

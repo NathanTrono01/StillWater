@@ -134,6 +134,14 @@ if (!$itemData) {
             <option value="Instruments">Instruments</option>
             <option value="Tools">Tools</option>
             <option value="Jewelry">Jewelry</option>
+            <option value="Home Decor">Home Decor</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Glassware and Ceramics">Glassware and Ceramics</option>
+            <option value="Textiles">Textiles</option>
+            <option value="Artwork">Artwork</option>
+            <option value="Lighting">Lighting</option>
+            <option value="Books">Books</option>
+            <option value="Toys">Toys</option>
             <option value="Others">Others...</option>
         </select>
 
@@ -180,9 +188,12 @@ if (isset($_POST['submit'])) {
     $comments = $_POST['critiqued_comments'];
 
     $uploadDir = 'uploads/';
-    $newFileName = '';
+    $newFileName = ''; // Initialize new file name
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['itemImage'])) {
+    // Retrieve the existing image path
+    $existingImagePath = $itemData['image_path'];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['itemImage']) && $_FILES['itemImage']['error'] == UPLOAD_ERR_OK) {
         $file = $_FILES['itemImage'];
         $fileName = basename($file['name']);
         $fileSize = $file['size'];
@@ -206,8 +217,12 @@ if (isset($_POST['submit'])) {
         } else {
             echo "Invalid file type or size exceeded.";
         }
+    } else {
+        // If no new file was uploaded, keep the existing image path
+        $newFileName = $existingImagePath;
     }
 
+    // Update SQL query to use the correct image path
     $sql = "UPDATE items SET 
             `condition` = '$condition', 
             item_type = '$item_type', 
