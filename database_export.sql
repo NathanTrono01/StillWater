@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `allclients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `allclients` (
-  `ClientNumber` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `ClientNumber` bigint(20) unsigned NOT NULL,
   `givenName` varchar(100) DEFAULT NULL,
   `ClientAddress` varchar(255) DEFAULT NULL,
   `lastName` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ClientNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,6 @@ CREATE TABLE `allclients` (
 
 LOCK TABLES `allclients` WRITE;
 /*!40000 ALTER TABLE `allclients` DISABLE KEYS */;
-INSERT INTO `allclients` VALUES (47,'Nathan Miguel','Prk. 3 Luinab, Iligan City','Trono'),(48,'Jaymar','Pugaan','Mangiboa'),(49,'Edsel Lyann Khim','Dalipuga','Bering');
 /*!40000 ALTER TABLE `allclients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,7 +48,7 @@ DROP TABLE IF EXISTS `items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `items` (
-  `item_num` int(11) NOT NULL AUTO_INCREMENT,
+  `item_num` int(11) NOT NULL,
   `description` text DEFAULT NULL,
   `asking_price` bigint(20) DEFAULT NULL,
   `critiqued_comments` text DEFAULT NULL,
@@ -61,7 +60,7 @@ CREATE TABLE `items` (
   PRIMARY KEY (`item_num`),
   KEY `allclients_items` (`ClientNumber`),
   CONSTRAINT `allclients_items` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +69,6 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (64,'1982 Revolver',10000,'Still Works','6746b599abb39.jpeg','Excellent','Others',1,NULL),(76,'1999 Pocket Revolver',8500,'Free Holster','6746cca917d8a.jpeg','Excellent','Others',0,47),(78,'Pikachu Illustrator',309853500,'Rarest Pokemon Card','6746d648c5a35.jpg','Excellent','Toys',0,48),(79,'Prototype Blastoise',21132000,'Rarest Pokemon Card','6746d5d734070.jpg','Excellent','Toys',0,48);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,17 +80,17 @@ DROP TABLE IF EXISTS `purchases`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `purchases` (
-  `purchase_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `purchase_id` bigint(20) unsigned NOT NULL,
   `condition_at_purchase` text DEFAULT NULL,
   `p_date` datetime DEFAULT NULL,
   `item_num` int(11) DEFAULT NULL,
   `ClientNumber` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`purchase_id`),
-  KEY `Items_Purchases` (`item_num`),
-  KEY `AllClients_Purchases` (`ClientNumber`),
-  CONSTRAINT `purchases_ibfk_10` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`),
-  CONSTRAINT `purchases_ibfk_14` FOREIGN KEY (`item_num`) REFERENCES `items` (`item_num`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `purchases_ibfk_10` (`ClientNumber`),
+  KEY `items_purchases` (`item_num`),
+  CONSTRAINT `items_purchases` FOREIGN KEY (`item_num`) REFERENCES `items` (`item_num`),
+  CONSTRAINT `purchases_ibfk_10` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +99,6 @@ CREATE TABLE `purchases` (
 
 LOCK TABLES `purchases` WRITE;
 /*!40000 ALTER TABLE `purchases` DISABLE KEYS */;
-INSERT INTO `purchases` VALUES (24,'Excellent','2024-11-27 06:25:20',NULL,47),(25,'Excellent','2024-11-27 06:34:03',NULL,47),(26,'Excellent','2024-11-27 06:36:49',NULL,47),(27,'Excellent','2024-11-27 06:38:56',NULL,47),(28,'Excellent','2024-11-27 06:47:08',NULL,47),(29,'Excellent','2024-11-27 06:58:16',NULL,47),(30,'Excellent','2024-11-27 07:08:52',NULL,47),(31,'Excellent','2024-11-27 07:12:56',NULL,47),(32,'Excellent','2024-11-27 07:15:13',NULL,47),(33,'Excellent','2024-11-27 07:15:15',NULL,47),(34,'Excellent','2024-11-27 07:18:13',NULL,47),(35,'Excellent','2024-11-27 07:32:24',76,47),(36,'Excellent','2024-11-27 15:49:00',78,48),(37,'Excellent','2024-11-27 15:56:49',79,48);
 /*!40000 ALTER TABLE `purchases` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +110,7 @@ DROP TABLE IF EXISTS `sales`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sales` (
-  `saleID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `saleID` bigint(20) unsigned NOT NULL,
   `commissionPaid` bigint(20) DEFAULT NULL,
   `sellingPrice` bigint(20) DEFAULT NULL,
   `salesTax` decimal(10,0) DEFAULT NULL,
@@ -121,11 +118,11 @@ CREATE TABLE `sales` (
   `item_num` int(11) DEFAULT NULL,
   `ClientNumber` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`saleID`),
-  KEY `AllClients_Sales` (`ClientNumber`),
-  KEY `Items_Sales` (`item_num`),
-  CONSTRAINT `sales_ibfk_11` FOREIGN KEY (`item_num`) REFERENCES `items` (`item_num`) ON DELETE SET NULL ON UPDATE SET NULL,
-  CONSTRAINT `sales_ibfk_5` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `sales_ibfk_11` (`item_num`),
+  KEY `allclients_sales` (`ClientNumber`),
+  CONSTRAINT `allclients_sales` FOREIGN KEY (`ClientNumber`) REFERENCES `allclients` (`ClientNumber`),
+  CONSTRAINT `sales_ibfk_11` FOREIGN KEY (`item_num`) REFERENCES `items` (`item_num`) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +131,6 @@ CREATE TABLE `sales` (
 
 LOCK TABLES `sales` WRITE;
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-INSERT INTO `sales` VALUES (20,1000,9500,1140,'2024-11-27 15:51:48',64,NULL);
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -147,4 +143,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-27  8:49:25
+-- Dump completed on 2024-11-27  8:53:58
