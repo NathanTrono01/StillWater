@@ -130,8 +130,8 @@
                         <td><?php echo $result['critiqued_comments']; ?></td>
                         <td><?php echo $result['item_type']; ?></td>
                         <td align="center" class="action-buttons">
-                            <a class='bx bxs-edit editbtn' href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'></a>
-                            <a class='bx bxs-trash deletebtn' href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');"></a>
+                            <a class='bx bxs-edit editbtn' href='update_i.php?action=edit&item_num=<?php echo $result["item_num"]; ?>'>Edit</a>
+                            <a class='bx bxs-trash deletebtn' href='items.php?action=delete&item_num=<?php echo $result["item_num"]; ?>' onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                         </td>
                     </tr>
                 <?php } ?>

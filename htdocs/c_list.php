@@ -57,8 +57,8 @@ if (!$query) {
                                 <?php echo htmlspecialchars($result['givenName']); ?></td>
                             <td align="left"><?php echo $result['ClientAddress']; ?></td>
                             <td align="center" class="action-buttons">
-                                <a class="bx bxs-edit editbtn" href='update_c.php?action=edit&ClientNumber=<?php echo $result["ClientNumber"]; ?>'></a>
-                                <a class="bx bxs-trash deletebtn" href='c_list.php?action=delete&ClientNumber=<?php echo $result["ClientNumber"]; ?>' onclick="return confirm('Are you sure you want to delete this client?');"></a>
+                                <a class="bx bxs-edit editbtn" href='update_c.php?action=edit&ClientNumber=<?php echo $result["ClientNumber"]; ?>'>Edit</a>
+                                <a class="bx bxs-trash deletebtn" href='c_list.php?action=delete&ClientNumber=<?php echo $result["ClientNumber"]; ?>' onclick="return confirm('Are you sure you want to delete this client?');">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

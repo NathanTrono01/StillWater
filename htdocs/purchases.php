@@ -130,7 +130,7 @@
                             ?>
                         </td>
                         <td align="center" class="action-buttons">
-                            <a class="bx bxs-trash deletebtn" href="purchases.php?action=delete&id=<?php echo $result['purchase_id']; ?>"></a>
+                            <a class="bx bxs-trash deletebtn" href="purchases.php?action=delete&id=<?php echo $result['purchase_id']; ?>">Delete</a>
                         </td>
                     </tr>
                 <?php

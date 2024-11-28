@@ -89,7 +89,7 @@
                         <td><span style="color: green;">₱</span> <?php echo $commission; ?></td>
                         <td><span style="color: green;">₱</span> <?php echo $formatSalesTax; ?></td> <!-- Display calculated sales tax -->
                         <td align="center" class="action-buttons">
-                            <a class="bx bxs-trash deletebtn" href='sales.php?action=delete&saleID=<?php echo $result["saleID"]; ?>' onclick="return confirm('Are you sure you want to delete this record?');"></a>
+                            <a class="bx bxs-trash deletebtn" href='sales.php?action=delete&saleID=<?php echo $result["saleID"]; ?>' onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                         </td>
                     </tr>
                 <?php } ?>
