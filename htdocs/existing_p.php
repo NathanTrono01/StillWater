@@ -220,12 +220,12 @@
 
     <?php
     if (isset($_POST['submit'])) {
-        $clientNumber = mysqli_real_escape_string($conn, $_POST['ClientNumber']);
-        $description = mysqli_real_escape_string($conn, $_POST['description']);
-        $item_type = mysqli_real_escape_string($conn, $_POST['item_type']);
-        $condition_at_purchase = mysqli_real_escape_string($conn, $_POST['condition_at_purchase']);
-        $asking_price = mysqli_real_escape_string($conn, $_POST['asking_price']);
-        $critiqued_comments = mysqli_real_escape_string($conn, $_POST['critiqued_comments']);
+        $clientNumber = trim($_POST['ClientNumber']);
+        $description = trim($_POST['description']);
+        $item_type = trim($_POST['item_type']);
+        $condition_at_purchase = trim($_POST['condition_at_purchase']);
+        $asking_price = trim($_POST['asking_price']);
+        $critiqued_comments = trim($_POST['critiqued_comments']);
 
         $uploadDir = 'uploads/';
 
